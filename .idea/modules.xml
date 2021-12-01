@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/AdventOfCode2021.iml" filepath="$PROJECT_DIR$/.idea/AdventOfCode2021.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/advent_of_code2021.iml" filepath="$PROJECT_DIR$/.idea/advent_of_code2021.iml" />
     </modules>
   </component>
 </project>
