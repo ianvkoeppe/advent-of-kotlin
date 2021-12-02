@@ -12,6 +12,7 @@ repositories {
 }
 
 dependencies {
+  testImplementation("org.assertj:assertj-core:3.21.0")
   testImplementation(kotlin("test"))
   implementation(kotlin("stdlib-jdk8"))
 }
