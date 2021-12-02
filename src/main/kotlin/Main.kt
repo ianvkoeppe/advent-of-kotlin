@@ -1,6 +1,6 @@
-import days.Day1
 import io.Reader
+import days.Day2
 
 fun main() {
-  println(Day1.partTwo(Reader.read("day1.txt")))
+  println(Day2.partTwo(Reader.read("day2.txt")))
 }
