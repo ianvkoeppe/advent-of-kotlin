@@ -46,9 +46,9 @@ object Day4 {
 
   private fun calculateBoardScore(board: Board, nums: LinkedHashSet<Long>, winningRound: Int): Long {
     val winningNums = nums.take(winningRound + 1).toCollection(linkedSetOf())
-    val sumOfUnMarkedSquares = (board.indices).map { row ->
-      (board.indices).map { col -> if (winningNums.contains(board[row][col])) 0 else board[row][col] }.sum()
-    }.sum()
+    val sumOfUnMarkedSquares = (board.indices).sumOf { row ->
+      (board.indices).sumOf { col -> if (winningNums.contains(board[row][col])) 0 else board[row][col] }
+    }
     return sumOfUnMarkedSquares * winningNums.last()
   }
 }
