@@ -1,23 +1,27 @@
 package days
 
 import kotlin.math.abs
+import kotlin.math.ceil
+import kotlin.math.floor
+import kotlin.math.min
 
 object Day7 {
 
   fun partOne(lines: List<String>): Int {
     val positions = lines.first().split(",").map { it.toInt() }.sorted()
-    return findMinFuelWithBinarySearch(positions) { a, b -> abs(a - b) }
+    return positions.sumOf { abs(it - positions[positions.size / 2]) }
   }
 
   fun partTwo(lines: List<String>): Int {
-    val positions = lines.first().split(",").map { it.toInt() }.sorted()
-    return findMinFuelWithBinarySearch(positions) { a, b -> (abs(a - b) * (abs(a - b) + 1)) / 2 }
-  }
-
-  private fun findMinFuelWithBinarySearch(positions: List<Int>, calculation: (Int, Int) -> Int): Int {
-    val alignment = abs(((positions.minOrNull() ?: 0)..(positions.maxOrNull() ?: 0)).zipWithNext().binarySearch { (current, next) ->
-      positions.sumOf { calculation(it, next) }.compareTo(positions.sumOf { calculation(it, current) })
-    }) - 1 // Returns (-insertion point - 1)
-    return positions.sumOf { calculation(it, alignment) }
+    val positions = lines.first().split(",").map { it.toInt() }
+    val floor = positions.sumOf {
+      val n = abs(it - floor(positions.average()).toInt())
+      n * (n + 1) / 2
+    }
+    val ceil = positions.sumOf {
+      val n = abs(it - ceil(positions.average()).toInt())
+      n * (n + 1) / 2
+    }
+    return min(floor, ceil)
   }
 }

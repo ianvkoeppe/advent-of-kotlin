@@ -22,6 +22,6 @@ class Day7Tests {
 
   @Test
   fun partTwo() {
-    assertThat(Day7.partTwo(Reader.read("src/test/resources/day7/problem.txt"))).isEqualTo(0)
+    assertThat(Day7.partTwo(Reader.read("src/test/resources/day7/problem.txt"))).isEqualTo(96987874)
   }
 }
