@@ -21,10 +21,10 @@ object Day12 {
 
     val visited = if (current.lowercase() == current) previouslyVisitedCaves + (current to (previouslyVisitedCaves[current] ?: 0) + 1) else previouslyVisitedCaves
     return paths.getValue(current)
-      .filter { cave -> cave != "start" && (cave.uppercase() == cave || visited[cave] ?: 0  < 1 || !visited.containsValue(maxSingleSmallCaveVisits)) }
+      .filter { cave -> cave != "start" && (cave.uppercase() == cave || (visited[cave] ?: 0) < 1 || !visited.containsValue(maxSingleSmallCaveVisits)) }
       .sumOf { cave ->
         val visitedKey = visited.entries.fold("") { str, (k, v) -> str + k.repeat(v) }
-        acc.computeIfAbsent((cave to visitedKey)) { (c, _) -> countPaths(paths, maxSingleSmallCaveVisits, c, visited, acc) }
+        acc.getOrPut(cave to visitedKey) { countPaths(paths, maxSingleSmallCaveVisits, cave, visited, acc) }
       }
   }
 }
