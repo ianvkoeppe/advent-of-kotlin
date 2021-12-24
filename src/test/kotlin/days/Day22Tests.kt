@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test
 
 class Day22Tests {
   @Test
-  fun partOneExamples() {
+  fun partOneExample() {
     assertThat(Day22.partOne(Reader.read("src/test/resources/day22/example.txt"))).isEqualTo(590784)
   }
 

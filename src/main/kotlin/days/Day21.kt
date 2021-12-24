@@ -1,7 +1,7 @@
 package days
 
 data class Player(val n: Int, val initialPosition: Int)
-data class State(val positions: Map<Int, Int>, val scores: Map<Int, Int>, val turn: Int)
+data class GameState(val positions: Map<Int, Int>, val scores: Map<Int, Int>, val turn: Int)
 
 object Day21 {
 
@@ -24,12 +24,12 @@ object Day21 {
     }
   }
 
-  private fun playUntil(players: List<Player>, winningScore: Int, state: State = State(players.associate { it.n to it.initialPosition },  mapOf(), 0)): State {
+  private fun playUntil(players: List<Player>, winningScore: Int, state: GameState = GameState(players.associate { it.n to it.initialPosition },  mapOf(), 0)): GameState {
     if (state.scores.values.any { it >= winningScore }) return state
     return playUntil(players.drop(1) + players.first(), winningScore, turn(players.first(), state))
   }
 
-  private fun countUniverses(players: List<Player>, winningScore: Int, state: State = State(players.associate { it.n to it.initialPosition },  mapOf(), 0)): Map<Int, Long> {
+  private fun countUniverses(players: List<Player>, winningScore: Int, state: GameState = GameState(players.associate { it.n to it.initialPosition },  mapOf(), 0)): Map<Int, Long> {
     if (state.scores.values.any { it >= winningScore }) return mapOf(state.scores.maxByOrNull { it.value }!!.key to 1)
 
     return diracRolls
@@ -37,11 +37,11 @@ object Day21 {
       .reduce { a, b -> (a.keys + b.keys).associateWith { (a[it] ?: 0) + (b[it] ?: 0) } }
   }
 
-  private fun turn(player: Player, state: State): State {
+  private fun turn(player: Player, state: GameState): GameState {
     return turn(player, state, 6 + (state.turn * 9))
   }
 
-  private fun turn(player: Player, state: State, roll: Int): State {
+  private fun turn(player: Player, state: GameState, roll: Int): GameState {
     val afterRoll = roll + state.positions.getValue(player.n)
     val position = if (afterRoll % 10 == 0) 10 else if (afterRoll > 10) afterRoll % 10 else afterRoll
     val updatedScore = state.scores + (player.n to state.scores.getOrDefault(player.n, 0) + position)
