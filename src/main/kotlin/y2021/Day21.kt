@@ -1,9 +1,8 @@
 package y2021
 
-data class Player(val n: Int, val initialPosition: Int)
-data class GameState(val positions: Map<Int, Int>, val scores: Map<Int, Int>, val turn: Int)
-
 object Day21 {
+  data class Player(val n: Int, val initialPosition: Int)
+  data class GameState(val positions: Map<Int, Int>, val scores: Map<Int, Int>, val turn: Int)
 
   private val diracRolls: Map<Int, Int> = (1..3).flatMap { first -> (1..3).flatMap { second -> (1..3).map { third -> first + second + third } } }.groupingBy { it }.eachCount()
 

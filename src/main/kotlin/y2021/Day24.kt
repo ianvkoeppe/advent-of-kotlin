@@ -1,18 +1,17 @@
 package y2021
 
-data class Val(val id: String? = null, val primitive: Int? = null) { override fun toString(): String = id ?: primitive.toString() }
-data class Op(val left: Expr, val op: String, val right: Expr?) {
+object Day24 {
+  data class Val(val id: String? = null, val primitive: Int? = null) { override fun toString(): String = id ?: primitive.toString() }
+  data class Op(val left: Expr, val op: String, val right: Expr?) {
   override fun toString(): String {
     if (op == "inp") return "read()"
     if (op == "eql") return "(if ($left == $right) 1 else 0)"
     val o = when(op) { "add" -> "+" "mul" -> "*" "div" -> "/" "mod" -> "%" else -> "" }
     return "($left $o $right)"
   }
-}
-data class Expr(val value: Val? = null, val op: Op? = null) { override fun toString(): String = value?.toString() ?: op.toString() }
-data class Assignment(val variable: String, val op: Op) { override fun toString(): String = "$variable = $op" }
-
-object Day24 {
+  }
+  data class Expr(val value: Val? = null, val op: Op? = null) { override fun toString(): String = value?.toString() ?: op.toString() }
+  data class Assignment(val variable: String, val op: Op) { override fun toString(): String = "$variable = $op" }
 
   fun partOne(lines: List<String>): Long = solveBackwards(parseConstants(parse(lines))).first
   fun partTwo(lines: List<String>): Long = solveBackwards(parseConstants(parse(lines))).second

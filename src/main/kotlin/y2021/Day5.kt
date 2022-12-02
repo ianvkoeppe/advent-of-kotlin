@@ -1,7 +1,8 @@
 package y2021
 
-data class Point(val x: Int, val y: Int)
-data class Line(val start: Point, val end: Point) {
+object Day5 {
+  data class Point(val x: Int, val y: Int)
+  data class Line(val start: Point, val end: Point) {
   fun isHorizontalOrVeritcal(): Boolean {
     return start.x == end.x || start.y == end.y
   }
@@ -16,9 +17,8 @@ data class Line(val start: Point, val end: Point) {
       Point(newX, newY)
     }.takeWhile { it != maxX }.toList() + maxX
   }
-}
+  }
 
-object Day5 {
   fun partOne(lines: List<String>): Int {
     return countIntersections(parse(lines).filter(Line::isHorizontalOrVeritcal))
   }

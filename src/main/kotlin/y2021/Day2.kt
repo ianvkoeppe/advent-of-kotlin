@@ -2,9 +2,9 @@ package y2021
 
 import kotlin.math.abs
 
-data class Position(val x: Long = 0, val y: Long = 0, val aim: Long = 0)
-
 object Day2 {
+  data class Position(val x: Long = 0, val y: Long = 0, val aim: Long = 0)
+  
   fun partOne(lines: List<String>): Long {
     val position = lines.fold(Position()) { position, instruction ->
       val (orientation, distance) = instruction.split(" ")

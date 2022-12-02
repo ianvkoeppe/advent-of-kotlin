@@ -2,10 +2,8 @@ package y2021
 
 import java.util.*
 
-data class Node(val x: Int, val y: Int)
-
 object Day15 {
-
+  data class Node(val x: Int, val y: Int)
   private val adjacentSquares = listOf((1 to 0), (0 to 1), (-1 to 0), (0 to -1))
 
   fun partOne(lines: List<String>): Int {
