@@ -1,8 +1,8 @@
 package y2021
 
-data class Fold(val axis: Char, val position: Int)
-
 object Day13 {
+  data class Point(val x: Int, val y: Int)
+  data class Fold(val axis: Char, val position: Int)
 
   fun partOne(lines: List<String>): Int {
     val (grid, folds) = parse(lines)

@@ -1,9 +1,7 @@
 package y2021
 
-data class Signal(val segments: List<String>, val value: List<String>)
-
 object Day8 {
-
+  data class Signal(val segments: List<String>, val value: List<String>)
   private val numberToSegmentCount = mapOf((0 to 6), (1 to 2), (2 to 5), (3 to 5), (4 to 4), (5 to 5), (6 to 6), (7 to 3), (8 to 7), (9 to 6))
   private val uniqueSegmentCounts = numberToSegmentCount.entries
     .filter { (number, _) -> numberToSegmentCount.values.count { it == numberToSegmentCount[number] } == 1 }
