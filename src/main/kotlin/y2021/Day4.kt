@@ -23,7 +23,7 @@ object Day4 {
   private fun parseBoards(lines: List<String>, index: Int = 0): List<Board> {
     val board: Board = (index until lines.size)
       .takeWhile { lines[it].isNotEmpty() }
-      .map { lines[it].split("\\s+".toRegex()).map(String::toLong) }
+      .map { lines[it].trim().split("\\s+".toRegex()).map(String::toLong) }
 
     return if (board.isEmpty()) listOf() else listOf(board) + parseBoards(lines, index + board.size + 1)
   }

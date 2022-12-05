@@ -41,11 +41,11 @@ object Day23 {
     }
 
     private fun newBurrow(hallwayIndex: Int, hallwayValue: Char, roomType: Char, roomValue: Char): Burrow {
-      val a = if (hallwayValue == ' ') roomValue else hallwayValue
+      val amphipod = if (hallwayValue == ' ') roomValue else hallwayValue
       val h = hallway.mapIndexed { i, a -> if (i == hallwayIndex) hallwayValue else a }
       val r = newRoom(roomType, roomValue)
       val c = abs(hallwayIndex - roomEntrancePositions.getValue(roomType)) + r.size - r.count { it != ' ' } + if (roomValue == ' ') 0 else 1
-      return this.copy(hallway = h, rooms = rooms + (roomType to r), cost = cost + c * costMagnitudes.getValue(a))
+      return this.copy(hallway = h, rooms = rooms + (roomType to r), cost = cost + c * costMagnitudes.getValue(amphipod))
     }
     private fun newRoom(roomType: Char, roomValue: Char): List<Char> {
       val prefix = if (roomValue == ' ') rooms.getValue(roomType).takeWhile { it == ' ' } else rooms.getValue(roomType).takeWhile { it == ' ' }.drop(1)
@@ -66,7 +66,7 @@ object Day23 {
   }
 
   private fun parse(lines: List<String>): Burrow {
-    val amphipods = lines.drop(2).take(2).map { line -> line.filterNot { it == '#' } }
+    val amphipods = lines.drop(2).take(2).map { line -> line.trim().filterNot { it == '#' } }
     val rooms = amphipods.first().indices.map { index -> amphipods.map { it[index] } }
     return Burrow(List(11) { ' ' }, mapOf('A' to rooms[0], 'B' to rooms[1], 'C' to rooms[2], 'D' to rooms[3]))
   }
