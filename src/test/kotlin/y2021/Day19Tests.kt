@@ -12,7 +12,7 @@ class Day19Tests {
   }
 
   @Test
-  @Disabled
+  @Disabled("Slow")
   fun partOne() {
     assertThat(Day19.partOne(Reader.readProblem(2021, 19))).isEqualTo(383)
   }
@@ -23,7 +23,7 @@ class Day19Tests {
   }
 
   @Test
-  @Disabled
+  @Disabled("Slow")
   fun partTwo() {
     assertThat(Day19.partTwo(Reader.readProblem(2021, 19))).isEqualTo(9854)
   }

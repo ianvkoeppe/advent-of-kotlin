@@ -2,6 +2,7 @@ package y2021
 
 import io.Reader
 import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 
 class Day21Tests {
@@ -16,11 +17,13 @@ class Day21Tests {
   }
 
   @Test
+  @Disabled("Slow")
   fun partTwoExample() {
     assertThat(Day21.partTwo(Reader.readExample(2021, 21))).isEqualTo(444356092776315)
   }
 
   @Test
+  @Disabled("Slow")
   fun partTwo() {
     assertThat(Day21.partTwo(Reader.readProblem(2021, 21))).isEqualTo(105619718613031L)
   }
