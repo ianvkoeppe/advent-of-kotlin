@@ -20,20 +20,16 @@ object Day15 {
     val shortestPaths = mutableMapOf(Node(0, 0) to 0)
     val unvisited = PriorityQueue<Node>(Comparator.comparingInt { n -> shortestPaths.getValue(n) })
     unvisited.add(Node(0, 0))
-    val visited: MutableSet<Node> = mutableSetOf()
 
     while (unvisited.isNotEmpty()) {
       val current = unvisited.remove()
       findAdjacentSquares(risks, current, mapMultiplier)
-        .filterNot(visited::contains)
-        .forEach { adjacent ->
-          val candidate = shortestPaths.getValue(current) + calculateRisk(risks, adjacent)
-          if (!shortestPaths.containsKey(adjacent) || candidate < shortestPaths.getValue(adjacent)) {
-            shortestPaths[adjacent] = candidate
-            unvisited.add(adjacent)
-          }
-      }
-      visited.add(current)
+        .map { adjacent -> adjacent to shortestPaths.getValue(current) + calculateRisk(risks, adjacent) }
+        .filter { (adjacent, _) -> !shortestPaths.containsKey(adjacent) }
+        .forEach { (adjacent, candidate) ->
+          shortestPaths[adjacent] = candidate
+          unvisited.add(adjacent)
+        }
     }
 
     return shortestPaths.getValue(Node(risks.size * mapMultiplier - 1, risks.size * mapMultiplier - 1))
