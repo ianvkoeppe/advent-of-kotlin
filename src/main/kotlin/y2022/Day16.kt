@@ -21,8 +21,8 @@ object Day16 {
     }
     private fun findCartesianProductOfMoves(movements: List<List<Movement>>): List<List<Movement>> {
       return movements.fold(listOf(listOf<Movement>())) { products, nexts -> products.flatMap { product -> nexts.map { next -> product + next } } }
-        .filter { movements -> haveDifferentDestinations(movements) }
-       .distinctBy { movements -> movements.map { it.distinctKey() }.sorted().joinToString(",") }
+        .filter { m -> haveDifferentDestinations(m) }
+       .distinctBy { m -> m.map { it.distinctKey() }.sorted().joinToString(",") }
     }
     private fun haveDifferentDestinations(movements: List<Movement>): Boolean = movements.distinctBy { it.to }.count() == movements.count()
 
