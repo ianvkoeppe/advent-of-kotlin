@@ -4,7 +4,7 @@ plugins {
   kotlin("jvm") version "1.5.10"
 }
 
-group = "me.ianvkoeppe"
+group = "ianvkoeppe"
 version = "1.0-SNAPSHOT"
 
 repositories {
@@ -12,10 +12,11 @@ repositories {
 }
 
 dependencies {
-  testImplementation("org.assertj:assertj-core:3.21.0")
-  testImplementation(kotlin("test"))
   implementation(kotlin("stdlib-jdk8"))
   implementation("com.google.code.gson:gson:2.8.9")
+
+  testImplementation("org.assertj:assertj-core:3.21.0")
+  testImplementation(kotlin("test"))
 }
 
 tasks.test {
