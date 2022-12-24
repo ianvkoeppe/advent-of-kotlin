@@ -5,11 +5,11 @@ import kotlin.math.abs
 object Day23 {
   data class Point(val x: Int, val y: Int)
   data class Crater(val elves: Set<Point>, val rounds: Int = 0) {
-    private val adjacentSquares = listOf(1 to 0, 1 to -1, 0 to -1, -1 to -1, -1 to 0, -1 to 1, 0 to 1, 1 to 1)
-    private val north = adjacentSquares.filter { (_, y) -> y == -1 }
-    private val south = adjacentSquares.filter { (_, y) -> y == 1 }
-    private val west = adjacentSquares.filter { (x, _) -> x == -1 }
-    private val east = adjacentSquares.filter { (x, _) -> x == 1 }
+    private val surroundingSquares = listOf(1 to 0, 1 to -1, 0 to -1, -1 to -1, -1 to 0, -1 to 1, 0 to 1, 1 to 1)
+    private val north = surroundingSquares.filter { (_, y) -> y == -1 }
+    private val south = surroundingSquares.filter { (_, y) -> y == 1 }
+    private val west = surroundingSquares.filter { (x, _) -> x == -1 }
+    private val east = surroundingSquares.filter { (x, _) -> x == 1 }
     private val directions = listOf(north, south, west, east)
 
     fun optimizePlanting(round: Int = -1, directionPriority: Int = 0): Crater {
@@ -26,7 +26,7 @@ object Day23 {
     }
     private fun findProposedMoves(directionPriority: Int): Map<Point, Point> = elves.associateWith { elf ->
       when {
-        findAdjacentSquares(adjacentSquares, elf).none { elves.contains(it) } -> elf
+        findAdjacentSquares(surroundingSquares, elf).none { elves.contains(it) } -> elf
         else -> findProposedMove(elf, directionPriority) ?: elf
       }
     }

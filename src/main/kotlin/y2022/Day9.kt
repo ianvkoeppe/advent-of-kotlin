@@ -7,7 +7,7 @@ object Day9 {
   data class Position(val x: Int, val y: Int)
   data class KnottedRope(val head: Position, val tails: List<Position>)
 
-  private val adjacentSquares = listOf((1 to 0), (1 to -1), (0 to -1), (-1 to -1), (-1 to 0), (-1 to 1), (0 to 1), (1 to 1))
+  private val surroundingSquares = listOf((1 to 0), (1 to -1), (0 to -1), (-1 to -1), (-1 to 0), (-1 to 1), (0 to 1), (1 to 1))
 
   fun partOne(lines: List<String>): Int = move(parse(lines)).map { it.tails.first() }.distinct().count()
   fun partTwo(lines: List<String>): Int = move(parse(lines)).map { it.tails.last() }.distinct().count()
@@ -38,7 +38,7 @@ object Day9 {
   private fun resolvePosition(lead: Position, follower: Position): Position {
     if (isTouching(lead, follower)) return follower
 
-    val (x, y) = adjacentSquares.map { (adjX, adjY) -> follower.x + adjX to follower.y + adjY }
+    val (x, y) = surroundingSquares.map { (adjX, adjY) -> follower.x + adjX to follower.y + adjY }
       .filter { (x, y) -> isTouching(lead, Position(x, y)) }
       .minByOrNull { (x, y) -> manhattanDistance(lead, Position(x, y)) }!!
     return Position(x, y)
