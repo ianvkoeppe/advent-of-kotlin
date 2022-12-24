@@ -3,8 +3,7 @@ package y2021
 import java.util.*
 
 object Day20 {
-
-  private val adjacentSquares = listOf((-1 to -1), (-1 to 0), (-1 to 1), (0 to -1), (0 to 0), (0 to 1), (1 to -1), (1 to 0), (1 to 1))
+  private val surroundingSquares = listOf((-1 to -1), (-1 to 0), (-1 to 1), (0 to -1), (0 to 0), (0 to 1), (1 to -1), (1 to 0), (1 to 1))
 
   fun partOne(lines: List<String>): Int {
     val (algorithm, image) = parse(lines)
@@ -30,7 +29,7 @@ object Day20 {
     val outside = if (algorithm.first() == '#') (if (step % 2 == 0) algorithm.last() else algorithm.first()) else '.'
     val newImage = (image.keys.first() - 1..image.keys.last() + 1).associateWith { rowIndex ->
       (image.keys.first() - 1..image.keys.last() + 1).associateWith { columnIndex ->
-        val binary = adjacentSquares.map { (x, y) -> rowIndex + x to columnIndex + y }
+        val binary = surroundingSquares.map { (x, y) -> rowIndex + x to columnIndex + y }
           .map { (x, y) -> image[x]?.get(y) ?: outside }
           .map { if (it == '#') 1 else 0 }
           .joinToString("")
