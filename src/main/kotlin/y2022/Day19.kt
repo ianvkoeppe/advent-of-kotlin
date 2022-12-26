@@ -12,10 +12,10 @@ object Day19 {
       return findTimeToBuildRobots()
         .filterValues { minutes - it > 0 }
         .entries
-        .fold(maxThusFar) { maxThusFar, (robot, turns) ->
+        .fold(maxThusFar) { maxes, (robot, turns) ->
           val withRobot = mineResources(turns).build(robot)
           val maxIfCoasting = withRobot.mineResources(minutes - turns).numberOfGeodes()
-          withRobot.findMaxCrackableGeodes(minutes - turns, max(maxThusFar, maxIfCoasting))
+          withRobot.findMaxCrackableGeodes(minutes - turns, max(maxes, maxIfCoasting))
         }
     }
 
