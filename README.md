@@ -1,3 +1,3 @@
 # Advent of Kotlin
 
-Solutions for [adventofcode.com](adventofcode.com) in Kotlin.
+Solutions for [adventofcode.com](https://adventofcode.com) in Kotlin.
