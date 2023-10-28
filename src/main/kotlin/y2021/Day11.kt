@@ -27,7 +27,7 @@ object Day11 {
     return stepUntilSynchronized(charged, steps + 1)
   }
 
-  private fun charge(octopodes: List<List<Int>>, toCharge: Map<Pair<Int, Int>, Int> = octopodes.indices.flatMap { x -> octopodes.indices.map { y -> (x to y) to 1 } }.toMap()): List<List<Int>> {
+  private tailrec fun charge(octopodes: List<List<Int>>, toCharge: Map<Pair<Int, Int>, Int> = octopodes.indices.flatMap { x -> octopodes.indices.map { y -> (x to y) to 1 } }.toMap()): List<List<Int>> {
     if (toCharge.isEmpty()) return octopodes.map { row -> row.map { if (it >= 10) 0 else it } }
 
     val charged = octopodes.mapIndexed { x, row ->

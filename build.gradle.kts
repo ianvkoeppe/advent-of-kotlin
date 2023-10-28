@@ -1,5 +1,5 @@
 plugins {
-  kotlin("jvm") version "1.9.0"
+  kotlin("jvm") version "1.9.10"
 }
 
 group = "ianvkoeppe"
@@ -11,10 +11,13 @@ repositories {
 
 dependencies {
   implementation(kotlin("stdlib-jdk8"))
-  implementation("com.google.code.gson:gson:2.10.1")
+  implementation("com.google.code.gson:gson:+")
 
-  testImplementation("org.assertj:assertj-core:3.24.2")
+
   testImplementation(kotlin("test"))
+  testImplementation("org.junit.jupiter:junit-jupiter:+")
+  testImplementation("org.assertj:assertj-core:+")
+  testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
 kotlin {

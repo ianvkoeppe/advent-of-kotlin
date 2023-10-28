@@ -20,7 +20,7 @@ object Day12 {
     return hill.flatMapIndexed { x, chars -> chars.mapIndexed { y, c -> if (c in targets) x to y else null }.filterNotNull() }
   }
 
-  private fun findShortestPaths(
+  private tailrec fun findShortestPaths(
     hill: List<List<Char>>,
     current: Pair<Int, Int>,
     shortestPaths: MutableMap<Pair<Int, Int>, Int> = mutableMapOf(current to 0),
