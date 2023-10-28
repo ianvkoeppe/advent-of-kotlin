@@ -17,29 +17,26 @@ object Day18 {
     private val adjacentCubes = listOf(Cube(-1, 0, 0), Cube(1, 0, 0), Cube(0, -1, 0), Cube(0, 1, 0), Cube(0, 0, -1), Cube(0, 0, 1))
     private val min: Cube = Cube(cubes.minOf { it.x }, cubes.minOf { it.y }, cubes.minOf { it.z })
     private val max: Cube = Cube(cubes.maxOf { it.x }, cubes.maxOf { it.y }, cubes.maxOf { it.z })
+    private val pockets = (min.x..max.x).flatMap { x -> (min.y..max.y).flatMap { y -> (min.z..max.z).map { z -> Cube(x, y, z) } } }.filterNot(cubes::contains).toSet()
 
     fun countNonOverlappingSides(): Int = 6 * cubes.size - countOverlappingSides()
     fun countNonOverlappingExternalSides(): Int = countNonOverlappingSides() - countInteriorSides()
     private fun countInteriorSides(): Int = countOverlappingSides(findPartitionedAirPockets().interior)
     private fun countOverlappingSides(others: Set<Cube> = cubes): Int = cubes.sumOf { cube -> others.count { other -> cube.manhattanDistance(other) == 1 } }
 
-    private fun findPartitionedAirPockets(): PartitionedAirPockets = findAllAirPockets().fold(PartitionedAirPockets()) { pockets, pocket ->
-      if (pockets.contains(pocket)) pockets else pockets.add(findPartitionedAirPockets(pocket))
+    private fun findPartitionedAirPockets(): PartitionedAirPockets {
+      val external = findAccessibleAirPockets(findAllEdgeExternalAirPockets())
+      val interior = pockets.filterNot(external::contains).toSet()
+      return PartitionedAirPockets(interior, external)
     }
-    private fun findPartitionedAirPockets(pocket: Cube, pockets: AirPockets = AirPockets(true, setOf(pocket))): AirPockets {
-      if (isExternal(pocket)) return pockets.copy(isInterior = false)
+    private tailrec fun findAccessibleAirPockets(unseen: Set<Cube>, seen: Set<Cube> = unseen): Set<Cube> {
+      val neighbors = unseen.flatMap(::findAdjacentCubes).filterNot(seen::contains).filterNot(cubes::contains).filter(pockets::contains).toSet()
+      if (neighbors.isEmpty()) return seen
 
-      val neighbors = findAdjacentCubes(pocket).filterNot(cubes::contains).filterNot(pockets.pockets::contains)
-      if (neighbors.isEmpty()) return pockets.copy(isInterior = true)
-
-      return neighbors.fold(pockets) { p, neighbor ->
-        val partitioned = findPartitionedAirPockets(neighbor, p.copy(pockets = p.pockets + neighbor))
-        p.copy(isInterior = p.isInterior && partitioned.isInterior, pockets = partitioned.pockets)
-      }
+      return findAccessibleAirPockets(neighbors, seen + neighbors)
     }
 
-    private fun findAllAirPockets(): Set<Cube> = (min.x..max.x).flatMap { x -> (min.y..max.y).flatMap { y -> (min.z..max.z).map { z -> Cube(x, y, z) } } }
-      .filterNot(cubes::contains).toSet()
+    private fun findAllEdgeExternalAirPockets(): Set<Cube> = pockets.filter(::isExternal).toSet()
     private fun findAdjacentCubes(cube: Cube): Set<Cube> = adjacentCubes.map { (adjX, adjY, adjZ) -> Cube(cube.x + adjX, cube.y + adjY, cube.z + adjZ) }.toSet()
     private fun isExternal(cube: Cube): Boolean = cube.x <= min.x || cube.x >= max.x || cube.y <= min.y || cube.y >= max.y || cube.z <= min.z || cube.z >= max.z
   }

@@ -36,9 +36,12 @@ object Day14 {
     return when (minX) { maxX -> (minY..maxY).map { minX to it } else -> (minX..maxX).map { it to minY } }
   }
 
-  private fun letItSandLetItSandLetItSand(cave: Cave): Cave = settle(cave, sandStart)?.let { sand -> letItSandLetItSandLetItSand(cave.placeSand(sand)) } ?: cave
+  private tailrec fun letItSandLetItSandLetItSand(cave: Cave): Cave {
+    val settled = settle(cave, sandStart)?.let(cave::placeSand)
+    return if (settled != null) letItSandLetItSandLetItSand(settled) else cave
+  }
 
-  private fun settle(cave: Cave, sand: Pair<Int, Int>): Pair<Int, Int>? {
+  private tailrec fun settle(cave: Cave, sand: Pair<Int, Int>): Pair<Int, Int>? {
     val nextPoint = cave.findNextSettlePoint(sand)
     return when {
       cave.isFallingIntoAbyss(sand) || cave.sand.contains(sand) -> null

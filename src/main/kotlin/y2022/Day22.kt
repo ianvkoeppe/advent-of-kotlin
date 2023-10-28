@@ -106,7 +106,7 @@ object Day22 {
   }
 
   data class BoardMap(val points: Map<Point, Char>, val links: Map<Position, Position>) {
-    fun move(position: Position, movements: List<Movement>, movement: Int = 0): Position {
+    tailrec fun move(position: Position, movements: List<Movement>, movement: Int = 0): Position {
       if (movement == movements.size) return position
 
       val next = when(val move = movements[movement]) {
@@ -116,7 +116,7 @@ object Day22 {
       return move(next, movements, movement + 1)
     }
 
-    private fun step(position: Position, steps: Int): Position {
+    private tailrec fun step(position: Position, steps: Int): Position {
       if (steps == 0) return position
 
       val next = links.getOrElse(position) {

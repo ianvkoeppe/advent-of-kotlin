@@ -34,7 +34,7 @@ object Day22 {
     return low.toLong()..high.toLong()
   }
 
-  private fun run(instructions: List<Instruction>, current: Int = 0, on: List<Area3D> = listOf()): List<Area3D> {
+  private tailrec fun run(instructions: List<Instruction>, current: Int = 0, on: List<Area3D> = listOf()): List<Area3D> {
     if (current == instructions.size) return on
     return run(instructions, current + 1, turn(on, instructions[current]))
   }

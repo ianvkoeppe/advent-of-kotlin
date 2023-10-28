@@ -10,16 +10,8 @@ object Day11 {
     fun findMonkeyToPassTo(item: Long): Int = test.findMonkeyToPassTo(item)
   }
 
-  data class Troop(private val monkeys: List<Monkey>) {
-    fun monkeyAround(rounds: Int, stressManagementTechnique: (Long) -> Long): Troop {
-      if (rounds == 0) return this
-
-      return monkeys.indices.fold(this) { troop, monkey ->
-        troop.monkeyAround(troop.monkeys[monkey], stressManagementTechnique)
-      }.monkeyAround(rounds - 1, stressManagementTechnique)
-    }
-
-    private fun monkeyAround(current: Monkey, stressManagementTechnique: (Long) -> Long): Troop {
+  data class Troop(val monkeys: List<Monkey>) {
+    fun monkeyAround(current: Monkey, stressManagementTechnique: (Long) -> Long): Troop {
       val toPass = current.items.map { item -> current.operate(item, stressManagementTechnique) }.groupBy { item -> current.findMonkeyToPassTo(item) }
       val monkeys = monkeys.map { monkey ->
         monkey.copy(
@@ -36,10 +28,10 @@ object Day11 {
 
   private val operations = mapOf<String, (Long, Long) -> Long>("*" to Long::times, "+" to Long::plus)
 
-  fun partOne(lines: List<String>): Long = parseMonkeys(lines).monkeyAround(20) { item -> item / 3 }.findMonkeyBusiness()
+  fun partOne(lines: List<String>): Long = monkeyAround(parseMonkeys(lines), 20) { item -> item / 3 }.findMonkeyBusiness()
   fun partTwo(lines: List<String>): Long {
     val troop = parseMonkeys(lines)
-    return parseMonkeys(lines).monkeyAround(10000) { item -> item % troop.findProductOfTestValues() }.findMonkeyBusiness()
+    return monkeyAround(troop, 10000) { item -> item % troop.findProductOfTestValues() }.findMonkeyBusiness()
   }
 
   private fun parseMonkeys(lines: List<String>): Troop {
@@ -65,5 +57,13 @@ object Day11 {
     val trueMonkey = trueCase.trim().removePrefix("If true: throw to monkey ").toInt()
     val falseMonkey = falseCase.trim().removePrefix("If false: throw to monkey ").toInt()
     return Test(divisor, trueMonkey, falseMonkey)
+  }
+
+  private tailrec fun monkeyAround(troop: Troop, rounds: Int, stressManagementTechnique: (Long) -> Long): Troop {
+    if (rounds == 0) return troop
+
+    return monkeyAround(troop.monkeys.indices.fold(troop) { nextTroop, monkey ->
+      nextTroop.monkeyAround(nextTroop.monkeys[monkey], stressManagementTechnique)
+    }, rounds - 1, stressManagementTechnique)
   }
 }
