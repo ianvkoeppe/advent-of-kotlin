@@ -17,13 +17,13 @@ class Day21Tests {
   }
 
   @Test
-  @Disabled("Slow")
+  @Disabled("38s")
   fun partTwoExample() {
     assertThat(Day21.partTwo(Reader.readExample(2021, 21))).isEqualTo(444356092776315)
   }
 
   @Test
-  @Disabled("Slow")
+  @Disabled("28s")
   fun partTwo() {
     assertThat(Day21.partTwo(Reader.readProblem(2021, 21))).isEqualTo(105619718613031L)
   }
