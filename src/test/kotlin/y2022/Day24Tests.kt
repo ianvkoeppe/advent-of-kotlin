@@ -17,7 +17,7 @@ class Day24Tests {
 
   @Test
   fun partTwoExample() {
-    assertThat(Day24.partTwo(Reader.readExample( 2022, 24))).isEqualTo(54)
+    assertThat(Day24.partTwo(Reader.readExample(2022, 24))).isEqualTo(54)
   }
 
   @Test

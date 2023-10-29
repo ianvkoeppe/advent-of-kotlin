@@ -17,25 +17,33 @@ class Day10Tests {
 
   @Test
   fun partTwoExample() {
-    assertThat(Day10.partTwo(Reader.readExample( 2022, 10))).isEqualTo("""
+    assertThat(Day10.partTwo(Reader.readExample(2022, 10)))
+      .isEqualTo(
+        """
       ##  ##  ##  ##  ##  ##  ##  ##  ##  ##  
       ###   ###   ###   ###   ###   ###   ### 
       ####    ####    ####    ####    ####    
       #####     #####     #####     #####     
       ######      ######      ######      ####
       #######       #######       #######     
-    """.trimIndent())
+    """
+          .trimIndent()
+      )
   }
 
   @Test
   fun partTwo() {
-    assertThat(Day10.partTwo(Reader.readProblem(2022, 10))).isEqualTo("""
+    assertThat(Day10.partTwo(Reader.readProblem(2022, 10)))
+      .isEqualTo(
+        """
       #### #### #  #  ##  #    ###   ##  ###  
       #    #    #  # #  # #    #  # #  # #  # 
       ###  ###  #  # #    #    #  # #  # #  # 
       #    #    #  # # ## #    ###  #### ###  
       #    #    #  # #  # #    #    #  # #    
       #### #     ##   ### #### #    #  # #    
-    """.trimIndent())
+    """
+          .trimIndent()
+      )
   }
 }

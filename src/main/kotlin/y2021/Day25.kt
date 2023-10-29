@@ -17,7 +17,10 @@ object Day25 {
     val moved = cucumbers.map { it.toMutableList() }.toMutableList()
     cucumbers.forEachIndexed { rowIndex, row ->
       row.forEachIndexed { colIndex, cucumber ->
-        if (cucumber == target && cucumbers[(rowIndex + x) % cucumbers.size][(colIndex + y) % cucumbers.size] == '.') {
+        if (
+          cucumber == target &&
+            cucumbers[(rowIndex + x) % cucumbers.size][(colIndex + y) % cucumbers.size] == '.'
+        ) {
           moved[(rowIndex + x) % cucumbers.size][(colIndex + y) % cucumbers.size] = cucumber
           moved[rowIndex][colIndex] = '.'
         }

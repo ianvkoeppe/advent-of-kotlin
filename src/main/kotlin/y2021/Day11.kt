@@ -3,7 +3,8 @@ package y2021
 import kotlin.math.min
 
 object Day11 {
-  private val surroundingSquares = listOf((1 to 0), (1 to -1), (0 to -1), (-1 to -1), (-1 to 0), (-1 to 1), (0 to 1), (1 to 1))
+  private val surroundingSquares =
+    listOf((1 to 0), (1 to -1), (0 to -1), (-1 to -1), (-1 to 0), (-1 to 1), (0 to 1), (1 to 1))
 
   fun partOne(lines: List<String>): Int {
     val octopodes = lines.map { line -> line.map { Character.getNumericValue(it) } }
@@ -27,25 +28,36 @@ object Day11 {
     return stepUntilSynchronized(charged, steps + 1)
   }
 
-  private tailrec fun charge(octopodes: List<List<Int>>, toCharge: Map<Pair<Int, Int>, Int> = octopodes.indices.flatMap { x -> octopodes.indices.map { y -> (x to y) to 1 } }.toMap()): List<List<Int>> {
+  private tailrec fun charge(
+    octopodes: List<List<Int>>,
+    toCharge: Map<Pair<Int, Int>, Int> =
+      octopodes.indices.flatMap { x -> octopodes.indices.map { y -> (x to y) to 1 } }.toMap()
+  ): List<List<Int>> {
     if (toCharge.isEmpty()) return octopodes.map { row -> row.map { if (it >= 10) 0 else it } }
 
-    val charged = octopodes.mapIndexed { x, row ->
-      row.mapIndexed { y, octopus ->
-        min(octopus + toCharge.getOrDefault(x to y, 0), 10)
+    val charged =
+      octopodes.mapIndexed { x, row ->
+        row.mapIndexed { y, octopus -> min(octopus + toCharge.getOrDefault(x to y, 0), 10) }
       }
-    }
-    val nextToCharge = toCharge.keys
-      .filter { (x, y) -> charged[x][y] == 10 }
-      .flatMap { (x, y) -> findSurroundingSquares(charged, x, y) }
-      .filter { (x, y) -> charged[x][y] < 10 }
-      .groupingBy { it }
-      .eachCount()
+    val nextToCharge =
+      toCharge.keys
+        .filter { (x, y) -> charged[x][y] == 10 }
+        .flatMap { (x, y) -> findSurroundingSquares(charged, x, y) }
+        .filter { (x, y) -> charged[x][y] < 10 }
+        .groupingBy { it }
+        .eachCount()
     return charge(charged, nextToCharge)
   }
 
-  private fun findSurroundingSquares(octopodes: List<List<Int>>, i: Int, j: Int): Set<Pair<Int, Int>> {
-    return surroundingSquares.filter { (x, y) -> i + x >= 0 && i + x < octopodes.size && j + y >= 0 && j + y < octopodes.size }
+  private fun findSurroundingSquares(
+    octopodes: List<List<Int>>,
+    i: Int,
+    j: Int
+  ): Set<Pair<Int, Int>> {
+    return surroundingSquares
+      .filter { (x, y) ->
+        i + x >= 0 && i + x < octopodes.size && j + y >= 0 && j + y < octopodes.size
+      }
       .map { (x, y) -> i + x to j + y }
       .toSet()
   }

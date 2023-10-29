@@ -6,7 +6,10 @@ object Day1 {
   }
 
   fun partTwo(lines: List<String>): Int {
-    return lines.map { it.toInt() }.windowed(3).map { (a, b, c) -> a + b + c }
+    return lines
+      .map { it.toInt() }
+      .windowed(3)
+      .map { (a, b, c) -> a + b + c }
       .zipWithNext()
       .count { (current, next) -> next > current }
   }

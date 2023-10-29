@@ -4,14 +4,22 @@ object Day7 {
   interface Path {
     val name: String
     val parent: Dir?
+
     fun size(): Long
   }
-  data class File(override val name: String, override val parent: Dir, val size: Long): Path {
+
+  data class File(override val name: String, override val parent: Dir, val size: Long) : Path {
     override fun size(): Long = size
   }
-  data class Dir(override val name: String, override val parent: Dir? = null, val children: MutableList<Path> = mutableListOf()): Path {
+
+  data class Dir(
+    override val name: String,
+    override val parent: Dir? = null,
+    val children: MutableList<Path> = mutableListOf()
+  ) : Path {
     override fun size(): Long = children.sumOf { it.size() }
   }
+
   private const val smallFileThreshold = 100000
   private const val machineMemoryCapacity = 70000000
   private const val memoryNeededForUpdate = 30000000
@@ -37,7 +45,8 @@ object Day7 {
       "cd" -> {
         when (val opt = line.split(" ")[2]) {
           ".." -> cd.parent!!
-          else -> cd.children.filterIsInstance<Dir>().firstOrNull { it.name == opt } ?: parsePath("dir $opt", cd)
+          else -> cd.children.filterIsInstance<Dir>().firstOrNull { it.name == opt }
+              ?: parsePath("dir $opt", cd)
         }
       }
       "ls" -> cd

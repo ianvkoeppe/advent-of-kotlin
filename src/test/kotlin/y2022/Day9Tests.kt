@@ -17,7 +17,7 @@ class Day9Tests {
 
   @Test
   fun partTwoExample() {
-    assertThat(Day9.partTwo(Reader.read("example-1.txt", 2022, 9 ))).isEqualTo(1)
+    assertThat(Day9.partTwo(Reader.read("example-1.txt", 2022, 9))).isEqualTo(1)
     assertThat(Day9.partTwo(Reader.read("example-2.txt", 2022, 9))).isEqualTo(36)
   }
 
