@@ -15,19 +15,28 @@ object Day10 {
   }
 
   fun partTwo(lines: List<String>): Long {
-    val costs = lines.map { findSyntaxError(it) }.filter { it.first == null }.map { (_, remainingOpenChars) ->
-      remainingOpenChars.foldRight(0L) { char, total ->
-        total * 5 + weights.getValue(openToClose.getValue(char))
-      }
-    }.sorted()
+    val costs =
+      lines
+        .map { findSyntaxError(it) }
+        .filter { it.first == null }
+        .map { (_, remainingOpenChars) ->
+          remainingOpenChars.foldRight(0L) { char, total ->
+            total * 5 + weights.getValue(openToClose.getValue(char))
+          }
+        }
+        .sorted()
     return costs[costs.size / 2]
   }
 
   private fun findSyntaxError(line: String): Pair<Char?, ArrayDeque<Char>> {
     val remainingOpenChars = ArrayDeque<Char>()
-    val syntaxError = line.dropWhile { char ->
-      if (openToClose.containsKey(char)) remainingOpenChars.add(char) else remainingOpenChars.removeLast() == closeToOpen[char]
-    }.firstOrNull()
+    val syntaxError =
+      line
+        .dropWhile { char ->
+          if (openToClose.containsKey(char)) remainingOpenChars.add(char)
+          else remainingOpenChars.removeLast() == closeToOpen[char]
+        }
+        .firstOrNull()
     return syntaxError to remainingOpenChars
   }
 }

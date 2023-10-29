@@ -2,14 +2,28 @@ package y2022
 
 object Day10 {
   data class Instruction(val cmd: String, val amount: Int? = null)
-  data class State(private val register: List<Int> = listOf(1), private val cycle: Int = 0, private val screen: List<Char> = listOf()) {
+
+  data class State(
+    private val register: List<Int> = listOf(1),
+    private val cycle: Int = 0,
+    private val screen: List<Char> = listOf()
+  ) {
     private val screenSize = 40
 
     fun getValue(cycle: Int = this.cycle): Int = register[cycle]
-    fun update(value: Int): State = copy(register = register + value, cycle = cycle + 1, screen = screen + if (shouldDraw()) '#' else ' ')
 
-    private fun shouldDraw(): Boolean = getValue() - 1 <= cycle % screenSize && cycle % screenSize <= getValue() + 1
-    override fun toString(): String = screen.chunked(screenSize).joinToString("\n") { it.joinToString("") }
+    fun update(value: Int): State =
+      copy(
+        register = register + value,
+        cycle = cycle + 1,
+        screen = screen + if (shouldDraw()) '#' else ' '
+      )
+
+    private fun shouldDraw(): Boolean =
+      getValue() - 1 <= cycle % screenSize && cycle % screenSize <= getValue() + 1
+
+    override fun toString(): String =
+      screen.chunked(screenSize).joinToString("\n") { it.joinToString("") }
   }
 
   fun partOne(lines: List<String>): Int {

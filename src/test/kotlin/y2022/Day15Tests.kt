@@ -17,7 +17,7 @@ class Day15Tests {
 
   @Test
   fun partTwoExample() {
-    assertThat(Day15.partTwo(Reader.readExample( 2022, 15), 20)).isEqualTo(56000011)
+    assertThat(Day15.partTwo(Reader.readExample(2022, 15), 20)).isEqualTo(56000011)
   }
 
   @Test

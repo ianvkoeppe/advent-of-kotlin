@@ -1,18 +1,19 @@
 plugins {
   kotlin("jvm") version "1.9.10"
+  id("com.diffplug.spotless") version "6.22.0"
 }
 
 group = "ianvkoeppe"
+
 version = "1.0.0"
 
-repositories {
-  mavenCentral()
-}
+kotlin { jvmToolchain(17) }
+
+repositories { mavenCentral() }
 
 dependencies {
   implementation(kotlin("stdlib-jdk8"))
   implementation("com.google.code.gson:gson:+")
-
 
   testImplementation(kotlin("test"))
   testImplementation("org.junit.jupiter:junit-jupiter:+")
@@ -20,8 +21,9 @@ dependencies {
   testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
-kotlin {
-  jvmToolchain(17)
+configure<com.diffplug.gradle.spotless.SpotlessExtension> {
+  kotlin { ktfmt().googleStyle() }
+  kotlinGradle { ktfmt().googleStyle() }
 }
 
 tasks.test {

@@ -6,8 +6,14 @@ import com.google.gson.JsonElement
 import com.google.gson.JsonPrimitive
 
 object Day13 {
-  enum class Comparison { LESS, GREATER, EQUAL }
-  private val dividers = listOf(jsonArrayOf(jsonArrayOf(JsonPrimitive(2))), jsonArrayOf(jsonArrayOf(JsonPrimitive(6))))
+  enum class Comparison {
+    LESS,
+    GREATER,
+    EQUAL
+  }
+
+  private val dividers =
+    listOf(jsonArrayOf(jsonArrayOf(JsonPrimitive(2))), jsonArrayOf(jsonArrayOf(JsonPrimitive(6))))
 
   fun partOne(lines: List<String>): Int {
     return parse(lines)
@@ -26,7 +32,9 @@ object Day13 {
   }
 
   private fun parse(lines: List<String>): List<JsonArray> {
-    return lines.filter { it.isNotEmpty() }.map { line -> Gson().fromJson(line, JsonArray::class.java) }
+    return lines
+      .filter { it.isNotEmpty() }
+      .map { line -> Gson().fromJson(line, JsonArray::class.java) }
   }
 
   private fun compareTo(f: JsonArray, s: JsonArray, index: Int = 0): Comparison {
@@ -36,10 +44,12 @@ object Day13 {
       index < f.size() && index >= s.size() -> Comparison.GREATER
       else -> {
         val order = compareTo(f.get(index), s.get(index))
-        if (order == Comparison.LESS || order == Comparison.GREATER) order else compareTo(f, s, index + 1)
+        if (order == Comparison.LESS || order == Comparison.GREATER) order
+        else compareTo(f, s, index + 1)
       }
     }
   }
+
   private fun compareTo(f: JsonElement, s: JsonElement): Comparison {
     return when {
       f is JsonArray && s is JsonArray -> compareTo(f, s)
@@ -49,11 +59,13 @@ object Day13 {
       else -> Comparison.EQUAL
     }
   }
-  private fun compareTo(f: JsonPrimitive, s: JsonPrimitive): Comparison = when {
-    f.asInt < s.asInt -> Comparison.LESS
-    f.asInt == s.asInt -> Comparison.EQUAL
-    else -> Comparison.GREATER
-  }
+
+  private fun compareTo(f: JsonPrimitive, s: JsonPrimitive): Comparison =
+    when {
+      f.asInt < s.asInt -> Comparison.LESS
+      f.asInt == s.asInt -> Comparison.EQUAL
+      else -> Comparison.GREATER
+    }
 
   private fun jsonArrayOf(elem: JsonElement): JsonArray = JsonArray(1).also { it.add(elem) }
 }

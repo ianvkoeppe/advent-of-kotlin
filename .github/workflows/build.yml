@@ -18,4 +18,4 @@ jobs:
       with:
         java-version: '17'
         distribution: 'adopt'
-    - run: ./gradlew build
+    - run: ./gradlew check

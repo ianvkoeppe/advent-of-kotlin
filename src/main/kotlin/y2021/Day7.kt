@@ -14,14 +14,16 @@ object Day7 {
 
   fun partTwo(lines: List<String>): Int {
     val positions = lines.first().split(",").map { it.toInt() }
-    val floor = positions.sumOf {
-      val n = abs(it - floor(positions.average()).toInt())
-      n * (n + 1) / 2
-    }
-    val ceil = positions.sumOf {
-      val n = abs(it - ceil(positions.average()).toInt())
-      n * (n + 1) / 2
-    }
+    val floor =
+      positions.sumOf {
+        val n = abs(it - floor(positions.average()).toInt())
+        n * (n + 1) / 2
+      }
+    val ceil =
+      positions.sumOf {
+        val n = abs(it - ceil(positions.average()).toInt())
+        n * (n + 1) / 2
+      }
     return min(floor, ceil)
   }
 }
