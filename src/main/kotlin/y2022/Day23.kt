@@ -6,8 +6,7 @@ object Day23 {
   data class Point(val x: Int, val y: Int)
 
   data class Crater(val elves: Set<Point>, val rounds: Int = 0) {
-    private val surroundingSquares =
-      listOf(1 to 0, 1 to -1, 0 to -1, -1 to -1, -1 to 0, -1 to 1, 0 to 1, 1 to 1)
+    private val surroundingSquares = listOf(1 to 0, 1 to -1, 0 to -1, -1 to -1, -1 to 0, -1 to 1, 0 to 1, 1 to 1)
     private val north = surroundingSquares.filter { (_, y) -> y == -1 }
     private val south = surroundingSquares.filter { (_, y) -> y == 1 }
     private val west = surroundingSquares.filter { (x, _) -> x == -1 }
@@ -29,10 +28,7 @@ object Day23 {
         movements -> copy(rounds = rounds + 1)
         else ->
           copy(elves = movements, rounds = rounds + 1)
-            .optimizePlanting(
-              round - 1,
-              directionPriority = (directionPriority + 1) % directions.size
-            )
+            .optimizePlanting(round - 1, directionPriority = (directionPriority + 1) % directions.size)
       }
     }
 
@@ -64,17 +60,14 @@ object Day23 {
       directions.map { (adjX, adjY) -> Point(point.x + adjX, point.y + adjY) }
   }
 
-  fun partOne(lines: List<String>): Int =
-    parse(lines).optimizePlanting(10).findEmptyGroundWithinElves()
+  fun partOne(lines: List<String>): Int = parse(lines).optimizePlanting(10).findEmptyGroundWithinElves()
 
   fun partTwo(lines: List<String>): Int = parse(lines).optimizePlanting().rounds
 
   private fun parse(lines: List<String>): Crater {
     return Crater(
       lines.indices
-        .flatMap { y ->
-          lines[y].indices.filter { x -> lines[y][x] == '#' }.map { x -> Point(x, y) }
-        }
+        .flatMap { y -> lines[y].indices.filter { x -> lines[y][x] == '#' }.map { x -> Point(x, y) } }
         .toSet()
     )
   }

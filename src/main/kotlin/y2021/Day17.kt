@@ -34,24 +34,10 @@ object Day17 {
       .toSet()
   }
 
-  private fun hitsTarget(
-    x: Int,
-    y: Int,
-    xVelocity: Int,
-    yVelocity: Int,
-    xRange: IntRange,
-    yRange: IntRange
-  ): Boolean {
+  private fun hitsTarget(x: Int, y: Int, xVelocity: Int, yVelocity: Int, xRange: IntRange, yRange: IntRange): Boolean {
     if (xRange.contains(x) && yRange.contains(y)) return true
     if (x >= xRange.last || y < yRange.first) return false
 
-    return hitsTarget(
-      x + xVelocity,
-      y + yVelocity,
-      max(xVelocity - 1, 0),
-      yVelocity - 1,
-      xRange,
-      yRange
-    )
+    return hitsTarget(x + xVelocity, y + yVelocity, max(xVelocity - 1, 0), yVelocity - 1, xRange, yRange)
   }
 }

@@ -12,23 +12,17 @@ object Day9 {
   private val surroundingSquares =
     listOf((1 to 0), (1 to -1), (0 to -1), (-1 to -1), (-1 to 0), (-1 to 1), (0 to 1), (1 to 1))
 
-  fun partOne(lines: List<String>): Int =
-    move(parse(lines)).map { it.tails.first() }.distinct().count()
+  fun partOne(lines: List<String>): Int = move(parse(lines)).map { it.tails.first() }.distinct().count()
 
-  fun partTwo(lines: List<String>): Int =
-    move(parse(lines)).map { it.tails.last() }.distinct().count()
+  fun partTwo(lines: List<String>): Int = move(parse(lines)).map { it.tails.last() }.distinct().count()
 
   private fun parse(lines: List<String>): List<Movement> =
-    lines
-      .map { it.split(" ") }
-      .map { (distance, amount) -> Movement(distance.first(), amount.toInt()) }
+    lines.map { it.split(" ") }.map { (distance, amount) -> Movement(distance.first(), amount.toInt()) }
 
   private fun move(movements: List<Movement>, numberOfKnots: Int = 9): List<KnottedRope> {
     val rope = KnottedRope(Position(0, 0), List(numberOfKnots) { Position(0, 0) })
     return movements.fold(listOf(rope)) { initial, instruction ->
-      (1..instruction.amount).fold(initial) { positions, _ ->
-        positions + moveOnce(positions.last(), instruction)
-      }
+      (1..instruction.amount).fold(initial) { positions, _ -> positions + moveOnce(positions.last(), instruction) }
     }
   }
 
@@ -44,10 +38,7 @@ object Day9 {
   }
 
   private fun resolveTailPositions(position: KnottedRope): KnottedRope {
-    val tails =
-      position.tails.fold(listOf(position.head)) { next, tail ->
-        next + resolvePosition(next.last(), tail)
-      }
+    val tails = position.tails.fold(listOf(position.head)) { next, tail -> next + resolvePosition(next.last(), tail) }
     return KnottedRope(position.head, tails.drop(1))
   }
 
@@ -62,8 +53,7 @@ object Day9 {
     return Position(x, y)
   }
 
-  private fun isTouching(f: Position, s: Position): Boolean =
-    abs(f.x - s.x) <= 1 && abs(f.y - s.y) <= 1
+  private fun isTouching(f: Position, s: Position): Boolean = abs(f.x - s.x) <= 1 && abs(f.y - s.y) <= 1
 
   private fun manhattanDistance(f: Position, s: Position): Int = abs(f.x - s.x) + abs(f.y - s.y)
 }

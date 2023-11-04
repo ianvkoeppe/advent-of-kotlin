@@ -12,9 +12,7 @@ object Day25 {
     return snafu
       .map { char -> snafuSymbolValues.getOrElse(char) { char.digitToInt() } }
       .reversed()
-      .foldIndexed(0L) { place, total, digit ->
-        total + digit * 5.toDouble().pow(place.toDouble()).toLong()
-      }
+      .foldIndexed(0L) { place, total, digit -> total + digit * 5.toDouble().pow(place.toDouble()).toLong() }
   }
 
   data class SnafuBuilder(val snafu: List<Char> = listOf(), val carryOver: Int = 0) {
@@ -22,8 +20,7 @@ object Day25 {
   }
 
   private fun toSnafu(n: Long): String {
-    val base5Digits =
-      generateSequence(n) { it / 5 }.takeWhile { it > 0 }.map { (it % 5).toInt() }.toList()
+    val base5Digits = generateSequence(n) { it / 5 }.takeWhile { it > 0 }.map { (it % 5).toInt() }.toList()
     return base5Digits.fold(SnafuBuilder(), ::toSnafuDigit).toString()
   }
 
@@ -31,9 +28,7 @@ object Day25 {
     val digitWithCarryOver = digit + builder.carryOver
     val carryOver = if (numberToSymbol.contains(digitWithCarryOver)) 1 else 0
     return builder.copy(
-      snafu =
-        listOf(numberToSymbol.getOrDefault(digitWithCarryOver, digitWithCarryOver.digitToChar())) +
-          builder.snafu,
+      snafu = listOf(numberToSymbol.getOrDefault(digitWithCarryOver, digitWithCarryOver.digitToChar())) + builder.snafu,
       carryOver = carryOver
     )
   }

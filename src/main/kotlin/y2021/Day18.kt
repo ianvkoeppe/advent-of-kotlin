@@ -13,9 +13,7 @@ object Day18 {
 
   fun partTwo(lines: List<String>): Int {
     val nums = lines.map(::parse)
-    return nums.maxOf { left ->
-      nums.filter { it != left }.maxOf { right -> calculate(listOf(left, right)) }
-    }
+    return nums.maxOf { left -> nums.filter { it != left }.maxOf { right -> calculate(listOf(left, right)) } }
   }
 
   internal fun parse(json: String): JsonArray {
@@ -47,28 +45,22 @@ object Day18 {
   }
 
   private fun calculate(fishNums: List<JsonArray>): Int {
-    return magnitude(
-      fishNums.reduce { left, right -> nest(explodeAndSplit(flatten(newJsonArray(left, right)))) }
-    )
+    return magnitude(fishNums.reduce { left, right -> nest(explodeAndSplit(flatten(newJsonArray(left, right)))) })
   }
 
   internal fun explodeAndSplit(numsToDepths: List<Pair<Int, Int>>): List<Pair<Int, Int>> {
     val updated = numsToDepths.toMutableList()
 
     val indexToExplode =
-      numsToDepths.zipWithNext().indexOfFirst { (first, second) ->
-        first.second >= 4 && first.second == second.second
-      }
+      numsToDepths.zipWithNext().indexOfFirst { (first, second) -> first.second >= 4 && first.second == second.second }
     if (indexToExplode != -1) {
       if (indexToExplode - 1 >= 0) {
         val valToLeft = updated[indexToExplode - 1]
-        updated[indexToExplode - 1] =
-          updated[indexToExplode].first + valToLeft.first to valToLeft.second
+        updated[indexToExplode - 1] = updated[indexToExplode].first + valToLeft.first to valToLeft.second
       }
       if (indexToExplode + 2 < updated.size) {
         val valToRight = updated[indexToExplode + 2]
-        updated[indexToExplode + 2] =
-          updated[indexToExplode + 1].first + valToRight.first to valToRight.second
+        updated[indexToExplode + 2] = updated[indexToExplode + 1].first + valToRight.first to valToRight.second
       }
 
       updated[indexToExplode] = (0 to updated[indexToExplode].second - 1)
@@ -90,13 +82,8 @@ object Day18 {
 
   internal fun magnitude(fishNum: JsonArray): Int {
     val left =
-      3 *
-        if (fishNum.first().isJsonPrimitive) fishNum.first().asInt
-        else magnitude(fishNum.first().asJsonArray)
-    val right =
-      2 *
-        if (fishNum.last().isJsonPrimitive) fishNum.last().asInt
-        else magnitude(fishNum.last().asJsonArray)
+      3 * if (fishNum.first().isJsonPrimitive) fishNum.first().asInt else magnitude(fishNum.first().asJsonArray)
+    val right = 2 * if (fishNum.last().isJsonPrimitive) fishNum.last().asInt else magnitude(fishNum.last().asJsonArray)
     return left + right
   }
 

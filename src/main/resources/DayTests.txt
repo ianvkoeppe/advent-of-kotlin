@@ -1,0 +1,27 @@
+package y{year}
+
+import io.Filer
+import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.Test
+
+class Day{day}Tests {
+  @Test
+  fun partOneExample() {
+    assertThat(Day{day}.partOne(Filer.readExample({year}, {day}))).isEqualTo(0)
+  }
+
+  @Test
+  fun partOne() {
+    assertThat(Day{day}.partOne(Filer.readProblem({year}, {day}))).isEqualTo(0)
+  }
+
+  @Test
+  fun partTwoExample() {
+    assertThat(Day{day}.partTwo(Filer.readExample({year}, {day}))).isEqualTo(0)
+  }
+
+  @Test
+  fun partTwo() {
+    assertThat(Day{day}.partTwo(Filer.readProblem({year}, {day}))).isEqualTo(0)
+  }
+}

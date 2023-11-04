@@ -5,9 +5,7 @@ object Day5 {
 
   fun partOne(lines: List<String>): String {
     return moveAndFindTopCrates(lines) { stacks, move ->
-      repeat(move.amount) {
-        stacks.getValue(move.to).addLast(stacks.getValue(move.from).removeLast())
-      }
+      repeat(move.amount) { stacks.getValue(move.to).addLast(stacks.getValue(move.from).removeLast()) }
     }
   }
 
@@ -20,10 +18,8 @@ object Day5 {
     }
   }
 
-  private fun moveAndFindTopCrates(
-    lines: List<String>,
-    movement: (Map<Int, ArrayDeque<Char>>, Move) -> Unit
-  ): String = move(lines, movement).map { it.value.last() }.joinToString("")
+  private fun moveAndFindTopCrates(lines: List<String>, movement: (Map<Int, ArrayDeque<Char>>, Move) -> Unit): String =
+    move(lines, movement).map { it.value.last() }.joinToString("")
 
   private fun move(
     lines: List<String>,
@@ -40,11 +36,7 @@ object Day5 {
     val chars = lines.dropLast(1).map { line -> line.map { it } }
 
     return (0 until chars.last().size)
-      .map { x ->
-        (chars.size - 1 downTo 0).map { y ->
-          if (y < chars.size && x < chars[y].size) chars[y][x] else ' '
-        }
-      }
+      .map { x -> (chars.size - 1 downTo 0).map { y -> if (y < chars.size && x < chars[y].size) chars[y][x] else ' ' } }
       .filter { it.first() in 'A'..'Z' }
       .mapIndexed { index, crates -> index + 1 to ArrayDeque(crates.filter { it != ' ' }.toList()) }
       .toMap()

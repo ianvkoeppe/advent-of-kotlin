@@ -31,10 +31,7 @@ object Day19 {
 
     private fun mineResources(turns: Int = 1): Blueprint =
       copy(
-        resources =
-          robots
-            .map { (robot, count) -> robot to resources.getOrDefault(robot, 0) + (turns * count) }
-            .toMap()
+        resources = robots.map { (robot, count) -> robot to resources.getOrDefault(robot, 0) + (turns * count) }.toMap()
       )
 
     private fun findTimeToBuildRobots(): Map<Resource, Int> =
@@ -51,21 +48,17 @@ object Day19 {
       return max(
         0,
         costs
-          .maxOf { (type, cost) ->
-            ceil((cost.toDouble() - resources.getOrDefault(type, 0)) / robots.getValue(type))
-          }
+          .maxOf { (type, cost) -> ceil((cost.toDouble() - resources.getOrDefault(type, 0)) / robots.getValue(type)) }
           .toInt()
       ) + 1
     }
 
     private fun shouldBuild(robot: Resource): Boolean =
-      robot == Resource.GEODE ||
-        robots.getOrDefault(robot, 0) < costs.values.maxOf { it.getOrDefault(robot, 0) }
+      robot == Resource.GEODE || robots.getOrDefault(robot, 0) < costs.values.maxOf { it.getOrDefault(robot, 0) }
 
     private fun build(robot: Resource): Blueprint {
       val withRobot = robots + (robot to (robots[robot] ?: 0) + 1)
-      val minusResources =
-        resources.mapValues { (type, amount) -> amount - (costs[robot]?.get(type) ?: 0) }.toMap()
+      val minusResources = resources.mapValues { (type, amount) -> amount - (costs[robot]?.get(type) ?: 0) }.toMap()
       return copy(robots = withRobot, resources = minusResources)
     }
 
@@ -78,11 +71,9 @@ object Day19 {
   fun partOne(lines: List<String>): Int =
     parse(lines).map(Blueprint::findMaxCrackableGeodes).mapIndexed { i, max -> (i + 1) * max }.sum()
 
-  fun partTwo(lines: List<String>): Int =
-    parse(lines).take(3).map { it.findMaxCrackableGeodes(32) }.reduce(Int::times)
+  fun partTwo(lines: List<String>): Int = parse(lines).take(3).map { it.findMaxCrackableGeodes(32) }.reduce(Int::times)
 
-  private val blueprint =
-    "Each ([a-z]+) robot costs (\\d+?) ([a-z]+)( and (\\d+) ([a-z]+))?.".toRegex()
+  private val blueprint = "Each ([a-z]+) robot costs (\\d+?) ([a-z]+)( and (\\d+) ([a-z]+))?.".toRegex()
 
   private fun parse(lines: List<String>): List<Blueprint> = lines.map(::parseBlueprint)
 

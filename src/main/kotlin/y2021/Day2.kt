@@ -25,10 +25,7 @@ object Day2 {
         val (orientation, distance) = instruction.split(" ")
         when (orientation) {
           "forward" ->
-            position.copy(
-              x = position.x + distance.toInt(),
-              y = position.y - (distance.toInt() * position.aim)
-            )
+            position.copy(x = position.x + distance.toInt(), y = position.y - (distance.toInt() * position.aim))
           "up" -> position.copy(aim = position.aim + distance.toInt())
           "down" -> position.copy(aim = position.aim - distance.toInt())
           else -> position

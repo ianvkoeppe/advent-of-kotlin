@@ -39,9 +39,7 @@ object Day24 {
       .map { parts ->
         val rightSideOfOperation = parts.getOrNull(2)
         val rightHandExpression =
-          Expr(
-            value = Val(id = rightSideOfOperation, primitive = rightSideOfOperation?.toIntOrNull())
-          )
+          Expr(value = Val(id = rightSideOfOperation, primitive = rightSideOfOperation?.toIntOrNull()))
         Assignment(
           parts[1],
           Op(
@@ -65,8 +63,7 @@ object Day24 {
     }
   }
 
-  private fun parseRightHandPrimitive(assignment: Assignment): Int =
-    assignment.op.right?.value?.primitive!!
+  private fun parseRightHandPrimitive(assignment: Assignment): Int = assignment.op.right?.value?.primitive!!
 
   private fun solveBackwards(
     constants: List<Triple<Int, Int, Int>>,
@@ -112,27 +109,14 @@ object Day24 {
       .groupBy({ it.key }, { it.value })
   }
 
-  private fun firstValidCheck(
-    candidateDigit: Int,
-    targetZValue: Int,
-    constants: Triple<Int, Int, Int>,
-    A: Int
-  ): Int? {
+  private fun firstValidCheck(candidateDigit: Int, targetZValue: Int, constants: Triple<Int, Int, Int>, A: Int): Int? {
     val position = targetZValue * constants.first + A
-    return if (
-      position % 26 + constants.second == candidateDigit &&
-        position / constants.first == targetZValue
-    )
+    return if (position % 26 + constants.second == candidateDigit && position / constants.first == targetZValue)
       position
     else null
   }
 
-  private fun secondValidCheck(
-    candidateDigit: Int,
-    targetZValue: Int,
-    constants: Triple<Int, Int, Int>,
-    A: Int
-  ): Int? {
+  private fun secondValidCheck(candidateDigit: Int, targetZValue: Int, constants: Triple<Int, Int, Int>, A: Int): Int? {
     val position = (targetZValue - candidateDigit - constants.third) / 26 * constants.first + A
     return if (
       position % 26 + constants.second != candidateDigit &&
@@ -149,26 +133,24 @@ object Day24 {
     targetZ: Int = 0
   ): String {
     if (digitPosition == 14) return ""
-    val (digit, nextTargetZ) =
-      targetZToDigit.getValue(digitPosition).getValue(targetZ).minByOrNull(comparator)!!
+    val (digit, nextTargetZ) = targetZToDigit.getValue(digitPosition).getValue(targetZ).minByOrNull(comparator)!!
     return digit.toString() +
       findNumberEqualingZByComparator(targetZToDigit, comparator, digitPosition + 1, nextTargetZ)
   }
 
   /**
-   * Provides expression showing groups appear in the form with only the constants a, b, c changing
-   * which appear at indices 4, 5, and 14 from each input line...
+   * Provides expression showing groups appear in the form with only the constants a, b, c changing which appear at
+   * indices 4, 5, and 14 from each input line...
    *
-   * znext = (((z / a) * ((25 * ((((z % 26) + b) == read() ? 1 : 0) == 0 ? 1 : 0)) + 1)) +
-   * ((read() + c) * ((((z % 26) + b) == read() ? 1 : 0) == 0 ? 1 : 0)))
+   * znext = (((z / a) * ((25 * ((((z % 26) + b) == read() ? 1 : 0) == 0 ? 1 : 0)) + 1)) + ((read() + c) * ((((z % 26) +
+   * b) == read() ? 1 : 0) == 0 ? 1 : 0)))
    *
    * ...which simplifies to...
    *
-   * x = if ((z % 26) + b == w) 0 else 1 (x can only be 0 or 1) znext = x * (z / a) * (25 * (z /
-   * a) + w + c) (z / a) * 25 + w + c) + (z / a)
+   * x = if ((z % 26) + b == w) 0 else 1 (x can only be 0 or 1) znext = x * (z / a) * (25 * (z / a) + w + c) (z / a) *
+   * 25 + w + c) + (z / a)
    *
-   * ...solving for z would allow us to step back through the equation starting with the lowest
-   * significant digit...
+   * ...solving for z would allow us to step back through the equation starting with the lowest significant digit...
    * 1) z = znext * a + A; for A in [0, a-1]
    * 2) z = (znext - w - c) / 26 * a + A; for A in [0, c-1]
    */
@@ -185,9 +167,7 @@ object Day24 {
 
     val left = reverseEngineer(program, index - 1, statement.op.left.value!!)
     val right =
-      if (statement.op.right != null)
-        reverseEngineer(program, index - 1, statement.op.right.value!!)
-      else null
+      if (statement.op.right != null) reverseEngineer(program, index - 1, statement.op.right.value!!) else null
 
     return optimize(Expr(op = Op(left, statement.op.op, right)))
   }

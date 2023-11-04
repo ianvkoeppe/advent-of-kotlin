@@ -45,8 +45,7 @@ object Day7 {
       "cd" -> {
         when (val opt = line.split(" ")[2]) {
           ".." -> cd.parent!!
-          else -> cd.children.filterIsInstance<Dir>().firstOrNull { it.name == opt }
-              ?: parsePath("dir $opt", cd)
+          else -> cd.children.filterIsInstance<Dir>().firstOrNull { it.name == opt } ?: parsePath("dir $opt", cd)
         }
       }
       "ls" -> cd

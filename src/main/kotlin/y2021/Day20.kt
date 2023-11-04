@@ -4,17 +4,7 @@ import java.util.*
 
 object Day20 {
   private val surroundingSquares =
-    listOf(
-      (-1 to -1),
-      (-1 to 0),
-      (-1 to 1),
-      (0 to -1),
-      (0 to 0),
-      (0 to 1),
-      (1 to -1),
-      (1 to 0),
-      (1 to 1)
-    )
+    listOf((-1 to -1), (-1 to 0), (-1 to 1), (0 to -1), (0 to 0), (0 to 1), (1 to -1), (1 to 0), (1 to 1))
 
   fun partOne(lines: List<String>): Int {
     val (algorithm, image) = parse(lines)
@@ -31,24 +21,16 @@ object Day20 {
     val image =
       lines
         .drop(2)
-        .mapIndexed { row, line ->
-          row to line.mapIndexed { column, char -> column to char }.toMap().toSortedMap()
-        }
+        .mapIndexed { row, line -> row to line.mapIndexed { column, char -> column to char }.toMap().toSortedMap() }
         .toMap()
         .toSortedMap()
     return algorithm to image
   }
 
-  private fun step(
-    image: Map<Int, Map<Int, Char>>,
-    algorithm: String,
-    step: Int
-  ): Map<Int, Map<Int, Char>> {
+  private fun step(image: Map<Int, Map<Int, Char>>, algorithm: String, step: Int): Map<Int, Map<Int, Char>> {
     if (step == 0) return image
 
-    val outside =
-      if (algorithm.first() == '#') (if (step % 2 == 0) algorithm.last() else algorithm.first())
-      else '.'
+    val outside = if (algorithm.first() == '#') (if (step % 2 == 0) algorithm.last() else algorithm.first()) else '.'
     val newImage =
       (image.keys.first() - 1..image.keys.last() + 1)
         .associateWith { rowIndex ->

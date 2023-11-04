@@ -25,9 +25,7 @@ object Day15 {
     while (unvisited.isNotEmpty()) {
       val current = unvisited.remove()
       findAdjacentSquares(risks, current, mapMultiplier)
-        .map { adjacent ->
-          adjacent to shortestPaths.getValue(current) + calculateRisk(risks, adjacent)
-        }
+        .map { adjacent -> adjacent to shortestPaths.getValue(current) + calculateRisk(risks, adjacent) }
         .filter { (adjacent, _) -> !shortestPaths.containsKey(adjacent) }
         .forEach { (adjacent, candidate) ->
           shortestPaths[adjacent] = candidate
@@ -35,16 +33,10 @@ object Day15 {
         }
     }
 
-    return shortestPaths.getValue(
-      Node(risks.size * mapMultiplier - 1, risks.size * mapMultiplier - 1)
-    )
+    return shortestPaths.getValue(Node(risks.size * mapMultiplier - 1, risks.size * mapMultiplier - 1))
   }
 
-  private fun findAdjacentSquares(
-    risks: List<List<Int>>,
-    node: Node,
-    mapMultiplier: Int
-  ): List<Node> {
+  private fun findAdjacentSquares(risks: List<List<Int>>, node: Node, mapMultiplier: Int): List<Node> {
     return adjacentSquares
       .filter { (i, _) -> node.x + i >= 0 && node.x + i < risks.size * mapMultiplier }
       .filter { (_, j) -> node.y + j >= 0 && node.y + j < risks.size * mapMultiplier }
@@ -52,10 +44,7 @@ object Day15 {
   }
 
   private fun calculateRisk(risks: List<List<Int>>, node: Node): Int {
-    val risk =
-      risks[node.x % risks.size][node.y % risks.size] +
-        (node.x / risks.size) +
-        (node.y / risks.size)
+    val risk = risks[node.x % risks.size][node.y % risks.size] + (node.x / risks.size) + (node.y / risks.size)
     return if (risk >= 10) risk % 9 else risk
   }
 }

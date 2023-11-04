@@ -14,9 +14,7 @@ object Day6 {
 
   private fun step(fish: List<Long>, days: Int): Long {
     return (0 until days)
-      .fold(fish) { f, _ ->
-        f.indices.map { index -> f[(index + 1) % f.size] + if (index == 6) f[0] else 0 }
-      }
+      .fold(fish) { f, _ -> f.indices.map { index -> f[(index + 1) % f.size] + if (index == 6) f[0] else 0 } }
       .sum()
   }
 

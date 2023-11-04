@@ -49,15 +49,9 @@ object Day11 {
     return charge(charged, nextToCharge)
   }
 
-  private fun findSurroundingSquares(
-    octopodes: List<List<Int>>,
-    i: Int,
-    j: Int
-  ): Set<Pair<Int, Int>> {
+  private fun findSurroundingSquares(octopodes: List<List<Int>>, i: Int, j: Int): Set<Pair<Int, Int>> {
     return surroundingSquares
-      .filter { (x, y) ->
-        i + x >= 0 && i + x < octopodes.size && j + y >= 0 && j + y < octopodes.size
-      }
+      .filter { (x, y) -> i + x >= 0 && i + x < octopodes.size && j + y >= 0 && j + y < octopodes.size }
       .map { (x, y) -> i + x to j + y }
       .toSet()
   }

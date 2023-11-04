@@ -15,9 +15,7 @@ object Day14 {
     fun isFallingIntoAbyss(sand: Pair<Int, Int>): Boolean = sand.second >= (maxDepth ?: lowestWall)
 
     fun findNextSettlePoint(sand: Pair<Int, Int>): Pair<Int, Int>? =
-      settlePriorities
-        .map { (x, y) -> sand.first + x to sand.second + y }
-        .find { point -> !isOccupied(point) }
+      settlePriorities.map { (x, y) -> sand.first + x to sand.second + y }.find { point -> !isOccupied(point) }
 
     private fun isOccupied(point: Pair<Int, Int>): Boolean =
       walls.contains(point) || sand.contains(point) || point.second == maxDepth

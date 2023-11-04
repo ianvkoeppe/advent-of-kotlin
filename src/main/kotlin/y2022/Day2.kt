@@ -17,11 +17,7 @@ object Day2 {
       'Z' to Choice.SCISSORS
     )
   private val outcomes =
-    mapOf(
-      -1 to 6,
-      0 to 3,
-      1 to 0
-    ) // Take advantage of the idea that choice at index beats choice at index - 1, draws
+    mapOf(-1 to 6, 0 to 3, 1 to 0) // Take advantage of the idea that choice at index beats choice at index - 1, draws
   // at same index, and loses to index + 1.
 
   fun partOne(lines: List<String>): Int {
@@ -29,9 +25,7 @@ object Day2 {
   }
 
   fun partTwo(lines: List<String>): Int {
-    return findScoreWithStrategy(lines) { theirMove, yourStrategy ->
-      choiceByDesiredOutcome(theirMove, yourStrategy)
-    }
+    return findScoreWithStrategy(lines) { theirMove, yourStrategy -> choiceByDesiredOutcome(theirMove, yourStrategy) }
   }
 
   private fun findScoreWithStrategy(
@@ -54,9 +48,7 @@ object Day2 {
     return yourMove.ordinal +
       1 +
       outcomes
-        .map { (indexOffset, score) ->
-          if ((theirMove.ordinal - indexOffset) % 3 == yourMove.ordinal) score else 0
-        }
+        .map { (indexOffset, score) -> if ((theirMove.ordinal - indexOffset) % 3 == yourMove.ordinal) score else 0 }
         .sum()
   }
 }

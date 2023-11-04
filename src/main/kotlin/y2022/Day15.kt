@@ -6,11 +6,9 @@ import kotlin.math.min
 
 object Day15 {
   fun Pair<Int, Int>.merge(other: Pair<Int, Int>): List<Pair<Int, Int>> =
-    if (intersects(other)) listOf(min(first, other.first) to max(second, other.second))
-    else listOf(this, other)
+    if (intersects(other)) listOf(min(first, other.first) to max(second, other.second)) else listOf(this, other)
 
-  private fun Pair<Int, Int>.intersects(other: Pair<Int, Int>): Boolean =
-    first <= other.second && second >= other.first
+  private fun Pair<Int, Int>.intersects(other: Pair<Int, Int>): Boolean = first <= other.second && second >= other.first
 
   data class Point(val x: Int, val y: Int) {
     fun manhattanDistance(other: Point) = abs(x - other.x) + abs(y - other.y)
@@ -40,9 +38,7 @@ object Day15 {
 
     fun findRangeOfSignalAt(y: Int): Pair<Int, Int>? {
       val remainingDistance = height - sensor.manhattanDistance(Point(sensor.x, y))
-      return if (remainingDistance >= 0)
-        (sensor.x - remainingDistance) to (sensor.x + remainingDistance)
-      else null
+      return if (remainingDistance >= 0) (sensor.x - remainingDistance) to (sensor.x + remainingDistance) else null
     }
 
     fun isInSignalRange(point: Point): Boolean = sensor.manhattanDistance(point) <= height
@@ -67,9 +63,7 @@ object Day15 {
 
     private fun findRangeOfSignalsAt(y: Int): List<Pair<Int, Int>> {
       val ranges = signals.mapNotNull { it.findRangeOfSignalAt(y) }.sortedBy { it.first }
-      return ranges.drop(1).fold(listOf(ranges.first())) { merged, range ->
-        merged.flatMap { it.merge(range) }
-      }
+      return ranges.drop(1).fold(listOf(ranges.first())) { merged, range -> merged.flatMap { it.merge(range) } }
     }
 
     private fun countOverlappingBeacons(ranges: List<Pair<Int, Int>>, y: Int): Int =
@@ -78,8 +72,7 @@ object Day15 {
 
   fun partOne(lines: List<String>, y: Int): Int = parse(lines).countRangeOfSignalsAt(y)
 
-  fun partTwo(lines: List<String>, max: Int): Long =
-    parse(lines).findDistressBeacon(max).tuningFrequency()
+  fun partTwo(lines: List<String>, max: Int): Long = parse(lines).findDistressBeacon(max).tuningFrequency()
 
   private fun parse(lines: List<String>): Signals {
     return Signals(

@@ -1,7 +1,7 @@
-package y2023
+package y{year}
 
-object Day1 {
-  fun partOne(lines: List<String>): Int? {
+object Day{day} {
+  fun partOne(lines: List<String>): Int {
     return 0
   }
 

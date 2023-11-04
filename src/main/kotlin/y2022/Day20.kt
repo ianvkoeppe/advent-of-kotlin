@@ -46,8 +46,7 @@ object Day20 {
             next.prev = current
             current
           } + nodes.last()
-        val cycled =
-          linked.also { it.first().prev = it.last() }.also { it.last().next = it.first() }
+        val cycled = linked.also { it.first().prev = it.last() }.also { it.last().next = it.first() }
         return EncryptedNumbers(cycled.first(), cycled)
       }
     }
@@ -63,11 +62,9 @@ object Day20 {
     }
 
     fun unlinkAt(v: Long, node: Node<Long>? = head): List<Long> =
-      if (node?.v == v) generateSequence(unlinkAt(node)) { it.next }.map { it.v }.toList()
-      else unlinkAt(v, node?.next)
+      if (node?.v == v) generateSequence(unlinkAt(node)) { it.next }.map { it.v }.toList() else unlinkAt(v, node?.next)
 
-    private fun unlinkAt(node: Node<Long>): Node<Long> =
-      node.also { it.prev?.next = null }.also { it.prev = null }
+    private fun unlinkAt(node: Node<Long>): Node<Long> = node.also { it.prev?.next = null }.also { it.prev = null }
   }
 
   private val grooveCoordinates = listOf(1000, 2000, 3000)
@@ -77,11 +74,7 @@ object Day20 {
 
   fun partTwo(lines: List<String>): Long = decryptWithKeyAndShuffle(lines, decryptionKey, 10)
 
-  private fun decryptWithKeyAndShuffle(
-    lines: List<String>,
-    key: Long = 1,
-    shuffles: Int = 1
-  ): Long {
+  private fun decryptWithKeyAndShuffle(lines: List<String>, key: Long = 1, shuffles: Int = 1): Long {
     val numbers = parseWithKey(lines, key)
     repeat(shuffles) { numbers.shuffle() }
     val unlinked = numbers.unlinkAt(0)

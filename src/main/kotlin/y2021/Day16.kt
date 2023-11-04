@@ -6,20 +6,11 @@ import kotlin.math.min
 object Day16 {
   data class Offset(val start: Int, val length: Int = 0)
 
-  data class Packet(
-    val version: Int,
-    val type: Int,
-    val value: Long?,
-    val packets: List<Packet>,
-    val binary: String
-  )
+  data class Packet(val version: Int, val type: Int, val value: Long?, val packets: List<Packet>, val binary: String)
 
-  private val hexes =
-    listOf('0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F')
+  private val hexes = listOf('0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F')
   private val hexToBinary =
-    hexes
-      .mapIndexed { i, char -> char to String.format("%4s", i.toString(2)).replace(' ', '0') }
-      .toMap()
+    hexes.mapIndexed { i, char -> char to String.format("%4s", i.toString(2)).replace(' ', '0') }.toMap()
 
   private val version = Offset(0, 3)
   private val type = Offset(version.start + version.length, 3)
@@ -70,13 +61,7 @@ object Day16 {
     val literalChunks = chunks.take(chunks.takeWhile { it.first() == '1' }.count() + 1)
     val literalPayload = literalChunks.joinToString("")
     val literal = literalChunks.joinToString("") { it.drop(1) }.toLong(2)
-    return Packet(
-      version,
-      type,
-      literal,
-      emptyList(),
-      binary.take(this.literal.start + literalPayload.length)
-    )
+    return Packet(version, type, literal, emptyList(), binary.take(this.literal.start + literalPayload.length))
   }
 
   private fun createOperatorPacket(
@@ -96,11 +81,7 @@ object Day16 {
     )
   }
 
-  private fun parseUntil(
-    binary: String,
-    offset: Offset,
-    terminatingValue: (List<Packet>) -> Int
-  ): List<Packet> {
+  private fun parseUntil(binary: String, offset: Offset, terminatingValue: (List<Packet>) -> Int): List<Packet> {
     val endValue = binary.drop(offset.start).take(offset.length).toInt(2)
     val subPacketPayload = binary.drop(offset.start + offset.length)
 

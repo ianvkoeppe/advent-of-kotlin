@@ -2,8 +2,7 @@ package y2022
 
 object Day11 {
   data class Test(val divisor: Int, private val trueMonkey: Int, private val falseMonkey: Int) {
-    fun findMonkeyToPassTo(value: Long): Int =
-      if (value % divisor == 0L) trueMonkey else falseMonkey
+    fun findMonkeyToPassTo(value: Long): Int = if (value % divisor == 0L) trueMonkey else falseMonkey
   }
 
   data class Monkey(
@@ -29,10 +28,8 @@ object Day11 {
         monkeys.map { monkey ->
           monkey.copy(
             items =
-              if (monkey.number == current.number) listOf()
-              else monkey.items + (toPass[monkey.number] ?: listOf()),
-            inspections =
-              monkey.inspections + if (monkey.number == current.number) current.items.size else 0
+              if (monkey.number == current.number) listOf() else monkey.items + (toPass[monkey.number] ?: listOf()),
+            inspections = monkey.inspections + if (monkey.number == current.number) current.items.size else 0
           )
         }
       return Troop(monkeys)
@@ -40,38 +37,26 @@ object Day11 {
 
     fun findProductOfTestValues(): Int = monkeys.map { it.test.divisor }.reduce(Int::times)
 
-    fun findMonkeyBusiness(): Long =
-      monkeys.map { it.inspections }.sortedDescending().take(2).reduce(Long::times)
+    fun findMonkeyBusiness(): Long = monkeys.map { it.inspections }.sortedDescending().take(2).reduce(Long::times)
   }
 
-  private val operations =
-    mapOf<String, (Long, Long) -> Long>("*" to Long::times, "+" to Long::plus)
+  private val operations = mapOf<String, (Long, Long) -> Long>("*" to Long::times, "+" to Long::plus)
 
   fun partOne(lines: List<String>): Long =
     monkeyAround(parseMonkeys(lines), 20) { item -> item / 3 }.findMonkeyBusiness()
 
   fun partTwo(lines: List<String>): Long {
     val troop = parseMonkeys(lines)
-    return monkeyAround(troop, 10000) { item -> item % troop.findProductOfTestValues() }
-      .findMonkeyBusiness()
+    return monkeyAround(troop, 10000) { item -> item % troop.findProductOfTestValues() }.findMonkeyBusiness()
   }
 
   private fun parseMonkeys(lines: List<String>): Troop {
-    return Troop(
-      lines.joinToString("\n").split("\n\n").mapIndexed { number, monkey ->
-        parseMonkey(monkey, number)
-      }
-    )
+    return Troop(lines.joinToString("\n").split("\n\n").mapIndexed { number, monkey -> parseMonkey(monkey, number) })
   }
 
   private fun parseMonkey(line: String, number: Int): Monkey {
     val (items, operation, testCase, trueCase, falseCase) = line.split("\n").drop(1)
-    return Monkey(
-      number,
-      parseItems(items),
-      parseOperation(operation),
-      parseTest(testCase, trueCase, falseCase)
-    )
+    return Monkey(number, parseItems(items), parseOperation(operation), parseTest(testCase, trueCase, falseCase))
   }
 
   private fun parseItems(line: String): List<Long> {
@@ -94,11 +79,7 @@ object Day11 {
     return Test(divisor, trueMonkey, falseMonkey)
   }
 
-  private tailrec fun monkeyAround(
-    troop: Troop,
-    rounds: Int,
-    stressManagementTechnique: (Long) -> Long
-  ): Troop {
+  private tailrec fun monkeyAround(troop: Troop, rounds: Int, stressManagementTechnique: (Long) -> Long): Troop {
     if (rounds == 0) return troop
 
     return monkeyAround(

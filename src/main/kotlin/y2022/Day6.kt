@@ -6,6 +6,5 @@ object Day6 {
   fun partTwo(lines: List<String>): Int = findPacketStart(lines.first(), 14)
 
   private fun findPacketStart(line: String, lengthOfMarker: Int): Int =
-    line.windowed(lengthOfMarker).takeWhile { it.toSet().size != lengthOfMarker }.size +
-      lengthOfMarker
+    line.windowed(lengthOfMarker).takeWhile { it.toSet().size != lengthOfMarker }.size + lengthOfMarker
 }

@@ -28,21 +28,14 @@ object Day4 {
         .takeWhile { lines[it].isNotEmpty() }
         .map { lines[it].trim().split("\\s+".toRegex()).map(String::toLong) }
 
-    return if (board.isEmpty()) listOf()
-    else listOf(board) + parseBoards(lines, index + board.size + 1)
+    return if (board.isEmpty()) listOf() else listOf(board) + parseBoards(lines, index + board.size + 1)
   }
 
   private fun findMinWinRoundBy(board: Board, nums: LinkedHashSet<Long>): Int {
     val minRowWin =
-      board.indices
-        .map { checkWin(board, nums, it to 0) { (x, y) -> x to y + 1 } }
-        .filterNotNull()
-        .minOrNull()
+      board.indices.map { checkWin(board, nums, it to 0) { (x, y) -> x to y + 1 } }.filterNotNull().minOrNull()
     val minColWin =
-      board.indices
-        .map { checkWin(board, nums, 0 to it) { (x, y) -> x + 1 to y } }
-        .filterNotNull()
-        .minOrNull()
+      board.indices.map { checkWin(board, nums, 0 to it) { (x, y) -> x + 1 to y } }.filterNotNull().minOrNull()
     return listOfNotNull(minRowWin, minColWin).minOrNull()!!
   }
 
@@ -62,17 +55,11 @@ object Day4 {
     return if (hitRounds.size == board.size) hitRounds.maxOrNull() else null
   }
 
-  private fun calculateBoardScore(
-    board: Board,
-    nums: LinkedHashSet<Long>,
-    winningRound: Int
-  ): Long {
+  private fun calculateBoardScore(board: Board, nums: LinkedHashSet<Long>, winningRound: Int): Long {
     val winningNums = nums.take(winningRound + 1).toCollection(linkedSetOf())
     val sumOfUnMarkedSquares =
       (board.indices).sumOf { row ->
-        (board.indices).sumOf { col ->
-          if (winningNums.contains(board[row][col])) 0 else board[row][col]
-        }
+        (board.indices).sumOf { col -> if (winningNums.contains(board[row][col])) 0 else board[row][col] }
       }
     return sumOfUnMarkedSquares * winningNums.last()
   }

@@ -24,10 +24,7 @@ object Day24 {
       if (positions.any { it == end }) return this
 
       val blizzard = blizzard()
-      val next =
-        (positions.flatMap { findPossibleMoves(it) } + positions)
-          .filter { blizzard.isSafe(it) }
-          .toSet()
+      val next = (positions.flatMap { findPossibleMoves(it) } + positions).filter { blizzard.isSafe(it) }.toSet()
       return blizzard.crossSafely(next, end)
     }
 
@@ -39,8 +36,7 @@ object Day24 {
           groupByPosition(
             tiles.flatMap { (position, blizzards) ->
               blizzards.map { blizzard ->
-                if (blizzard in movements) blizzard(position, blizzard) to blizzard
-                else position to blizzard
+                if (blizzard in movements) blizzard(position, blizzard) to blizzard else position to blizzard
               }
             }
           ),
@@ -65,16 +61,11 @@ object Day24 {
 
   fun partOne(lines: List<String>): Int = parse(lines).crossSafely().minutes
 
-  fun partTwo(lines: List<String>): Int =
-    parse(lines).crossSafely().crossBack().crossSafely().minutes
+  fun partTwo(lines: List<String>): Int = parse(lines).crossSafely().crossBack().crossSafely().minutes
 
   private fun parse(lines: List<String>): Valley {
     return Valley(
-      groupByPosition(
-        lines.flatMapIndexed { y, row ->
-          row.mapIndexed { x, blizzard -> Position(x, y) to blizzard }
-        }
-      )
+      groupByPosition(lines.flatMapIndexed { y, row -> row.mapIndexed { x, blizzard -> Position(x, y) to blizzard } })
     )
   }
 

@@ -1,6 +1,6 @@
 package y2021
 
-import io.Reader
+import io.Filer
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -15,7 +15,7 @@ class Day16Tests {
 
   @Test
   fun partOne() {
-    assertThat(Day16.partOne(Reader.readProblem(2021, 16))).isEqualTo(999)
+    assertThat(Day16.partOne(Filer.readProblem(2021, 16))).isEqualTo(999)
   }
 
   @Test
@@ -32,6 +32,6 @@ class Day16Tests {
 
   @Test
   fun partTwo() {
-    assertThat(Day16.partTwo(Reader.readProblem(2021, 16))).isEqualTo(3408662834145)
+    assertThat(Day16.partTwo(Filer.readProblem(2021, 16))).isEqualTo(3408662834145)
   }
 }

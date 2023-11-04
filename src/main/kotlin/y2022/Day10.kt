@@ -13,17 +13,11 @@ object Day10 {
     fun getValue(cycle: Int = this.cycle): Int = register[cycle]
 
     fun update(value: Int): State =
-      copy(
-        register = register + value,
-        cycle = cycle + 1,
-        screen = screen + if (shouldDraw()) '#' else ' '
-      )
+      copy(register = register + value, cycle = cycle + 1, screen = screen + if (shouldDraw()) '#' else ' ')
 
-    private fun shouldDraw(): Boolean =
-      getValue() - 1 <= cycle % screenSize && cycle % screenSize <= getValue() + 1
+    private fun shouldDraw(): Boolean = getValue() - 1 <= cycle % screenSize && cycle % screenSize <= getValue() + 1
 
-    override fun toString(): String =
-      screen.chunked(screenSize).joinToString("\n") { it.joinToString("") }
+    override fun toString(): String = screen.chunked(screenSize).joinToString("\n") { it.joinToString("") }
   }
 
   fun partOne(lines: List<String>): Int {
