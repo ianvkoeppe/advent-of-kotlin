@@ -3,18 +3,9 @@ package y2022
 object Day16 {
   data class Valve(val name: String, val flowRate: Int, val tunnels: Map<String, Int>)
 
-  data class Position(
-    val name: String = "Ian",
-    val timeToErupt: Int = 30,
-    val valve: String = "AA"
-  )
+  data class Position(val name: String = "Ian", val timeToErupt: Int = 30, val valve: String = "AA")
 
-  data class Movement(
-    val from: Position,
-    val to: String,
-    val timeToMoveToAndOpen: Int,
-    val release: Int
-  ) {
+  data class Movement(val from: Position, val to: String, val timeToMoveToAndOpen: Int, val release: Int) {
     fun distinctKey(): String = "${from.timeToErupt}: ${from.valve}=>${to}"
   }
 
@@ -25,8 +16,7 @@ object Day16 {
     val released: Int = 0
   ) {
     fun underPressureDoDoDoDo(): Int =
-      findNextValves().maxOfOrNull { next -> moveToAndOpen(next).underPressureDoDoDoDo() }
-        ?: released
+      findNextValves().maxOfOrNull { next -> moveToAndOpen(next).underPressureDoDoDoDo() } ?: released
 
     private fun findNextValves(): List<List<Movement>> {
       val options =
@@ -68,10 +58,7 @@ object Day16 {
             movements
               .find { it.from == position }
               ?.let { movement ->
-                position.copy(
-                  valve = movement.to,
-                  timeToErupt = position.timeToErupt - movement.timeToMoveToAndOpen
-                )
+                position.copy(valve = movement.to, timeToErupt = position.timeToErupt - movement.timeToMoveToAndOpen)
               }
               ?: position
           },
@@ -84,28 +71,21 @@ object Day16 {
   fun partOne(lines: List<String>): Int = parse(lines).underPressureDoDoDoDo()
 
   fun partTwo(lines: List<String>): Int =
-    parse(lines)
-      .copy(positions = listOf(Position("Ian", 26), Position("Elephant", 26)))
-      .underPressureDoDoDoDo()
+    parse(lines).copy(positions = listOf(Position("Ian", 26), Position("Elephant", 26))).underPressureDoDoDoDo()
 
-  private val input =
-    "Valve ([A-Z]+) has flow rate=(\\d+); tunnels? leads? to valves? (.+)".toRegex()
+  private val input = "Valve ([A-Z]+) has flow rate=(\\d+); tunnels? leads? to valves? (.+)".toRegex()
 
   private fun parse(lines: List<String>): Volcano {
     return findShortestPaths(
       lines
         .map { line -> input.find(line)!!.groupValues }
-        .associate { (_, id, rate, valves) ->
-          (id to Valve(id, rate.toInt(), valves.split(", ").associateWith { 2 }))
-        }
+        .associate { (_, id, rate, valves) -> (id to Valve(id, rate.toInt(), valves.split(", ").associateWith { 2 })) }
     )
   }
 
   private fun findShortestPaths(valves: Map<String, Valve>): Volcano {
     return Volcano(
-      valves.mapValues { (_, valve) ->
-        valve.copy(tunnels = findShortestPath(valves, valve.tunnels.keys.toList()))
-      }
+      valves.mapValues { (_, valve) -> valve.copy(tunnels = findShortestPath(valves, valve.tunnels.keys.toList())) }
     )
   }
 

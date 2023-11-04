@@ -20,9 +20,7 @@ object Day22 {
       start.x <= point.x && point.x <= end.x && start.y <= point.y && point.y <= end.y
 
     fun points(): List<Point> =
-      generateSequence(start) { p ->
-          if (isHorizontal()) p.copy(x = p.x + 1) else p.copy(y = p.y + 1)
-        }
+      generateSequence(start) { p -> if (isHorizontal()) p.copy(x = p.x + 1) else p.copy(y = p.y + 1) }
         .takeWhile { it != end }
         .toList() + end
 
@@ -35,9 +33,7 @@ object Day22 {
         isIncreasingManhattanDistance(points().reversed(), other.points().reversed())
 
     private fun isIncreasingManhattanDistance(f: List<Point>, s: List<Point>): Boolean =
-      f.zip(s).zipWithNext().all { (f, s) ->
-        f.first.manhattanDistance(f.second) < s.first.manhattanDistance(s.second)
-      }
+      f.zip(s).zipWithNext().all { (f, s) -> f.first.manhattanDistance(f.second) < s.first.manhattanDistance(s.second) }
   }
 
   enum class Direction {
@@ -46,8 +42,7 @@ object Day22 {
     WEST,
     NORTH;
 
-    fun turn(direction: Char): Direction =
-      if (direction == 'R') turnNinetyDegrees(1) else turnNinetyDegrees(-1)
+    fun turn(direction: Char): Direction = if (direction == 'R') turnNinetyDegrees(1) else turnNinetyDegrees(-1)
 
     fun turnNinetyDegrees(clockwise: Int): Direction =
       Direction.values()[(ordinal + clockwise + Direction.values().size) % Direction.values().size]
@@ -68,12 +63,9 @@ object Day22 {
       val links =
         findEdges()
           .flatMap { edge ->
-            val opposite =
-              edges.filterNot { it == edge }.find { candidate -> isOppositeEdge(edge, candidate) }!!
+            val opposite = edges.filterNot { it == edge }.find { candidate -> isOppositeEdge(edge, candidate) }!!
             val direction = findExitDirection(opposite).turnNinetyDegrees(2)
-            edge.points().zip(opposite.points()).map { (f, s) ->
-              Position(f, direction) to Position(s, direction)
-            }
+            edge.points().zip(opposite.points()).map { (f, s) -> Position(f, direction) to Position(s, direction) }
           }
           .toMap()
       return BoardMap(points, links)
@@ -90,8 +82,7 @@ object Day22 {
       return when (linked.size) {
         edges.size -> pairedEdgesToPoints(linked)
         edges.size - 2 -> {
-          val newlyLinked =
-            edges.filterNot(linked::contains).let { (f, s) -> listOf(f to s, s to f) }.toMap()
+          val newlyLinked = edges.filterNot(linked::contains).let { (f, s) -> listOf(f to s, s to f) }.toMap()
           toMapLinkingAs3DCube(linked + newlyLinked)
         }
         else -> {
@@ -109,8 +100,7 @@ object Day22 {
               .map { corner ->
                 edges
                   .filter { edge ->
-                    val overlaps =
-                      edges.filterNot { it == edge }.firstOrNull { it.points().any(edge::contains) }
+                    val overlaps = edges.filterNot { it == edge }.firstOrNull { it.points().any(edge::contains) }
                     findNeighbors(corner).any { n ->
                       edge.contains(n) || (linked[overlaps]?.points() ?: setOf()).contains(n)
                     }
@@ -132,12 +122,9 @@ object Day22 {
             val direction = findExitDirection(f)
             val newDirection = findExitDirection(s).turnNinetyDegrees(2)
             val firstOrder =
-              if (direction == newDirection || f.isIncreasingOrDecreasingManhattanDistance(s))
-                f.points()
+              if (direction == newDirection || f.isIncreasingOrDecreasingManhattanDistance(s)) f.points()
               else f.points().reversed()
-            firstOrder.zip(s.points()).map { (f, s) ->
-              Position(f, direction) to Position(s, newDirection)
-            }
+            firstOrder.zip(s.points()).map { (f, s) -> Position(f, direction) to Position(s, newDirection) }
           }
           .toMap()
 
@@ -154,9 +141,7 @@ object Day22 {
 
     private fun findEdges(): Set<LineSegment> {
       val edgePoints = findEdgesPoints()
-      return edgePoints
-        .flatMap { edgePoint -> findSegmentContainingPoint(edgePoints, edgePoint) }
-        .toSet()
+      return edgePoints.flatMap { edgePoint -> findSegmentContainingPoint(edgePoints, edgePoint) }.toSet()
     }
 
     private fun findEdgesPoints(): Set<Point> =
@@ -172,11 +157,9 @@ object Day22 {
     private fun findEdgeSegmentsFromPoints(points: List<Point>): Set<LineSegment> {
       val sorted = points.sortedWith(compareBy({ it.x }, { it.y }))
       val (groups, lastGroup) =
-        sorted.drop(1).fold(Pair<Set<Set<Point>>, Set<Point>>(setOf(), setOf(sorted.first()))) {
-          (groups, group),
-          point ->
-          if (group.last().x + 1 == point.x || group.last().y + 1 == point.y)
-            groups to group + point
+        sorted.drop(1).fold(Pair<Set<Set<Point>>, Set<Point>>(setOf(), setOf(sorted.first()))) { (groups, group), point
+          ->
+          if (group.last().x + 1 == point.x || group.last().y + 1 == point.y) groups to group + point
           else (groups + setOf(group)) to setOf(point)
         }
       return (groups + setOf(lastGroup))
@@ -220,10 +203,7 @@ object Day22 {
 
   fun partOne(lines: List<String>): Int {
     val (board, movements) = parse(lines)
-    return board
-      .toMapLinkingOppositeEdge()
-      .move(board.findStartPosition(), movements)
-      .findPassword()
+    return board.toMapLinkingOppositeEdge().move(board.findStartPosition(), movements).findPassword()
   }
 
   fun partTwo(lines: List<String>): Int {
@@ -239,21 +219,12 @@ object Day22 {
   private fun parseBoard(lines: List<String>): Board {
     val points =
       lines.indices
-        .flatMap { y ->
-          lines[y]
-            .indices
-            .filterNot { x -> lines[y][x] == ' ' }
-            .map { x -> Point(x, y) to lines[y][x] }
-        }
+        .flatMap { y -> lines[y].indices.filterNot { x -> lines[y][x] == ' ' }.map { x -> Point(x, y) to lines[y][x] } }
         .toMap()
-    return Board(
-      points,
-      greatestCommonFactor(points.keys.maxOf { it.x + 1 }, points.keys.maxOf { it.y + 1 })
-    )
+    return Board(points, greatestCommonFactor(points.keys.maxOf { it.x + 1 }, points.keys.maxOf { it.y + 1 }))
   }
 
-  private fun greatestCommonFactor(a: Int, b: Int): Int =
-    if (b == 0) a else greatestCommonFactor(b, a % b)
+  private fun greatestCommonFactor(a: Int, b: Int): Int = if (b == 0) a else greatestCommonFactor(b, a % b)
 
   private fun parseMovements(line: String): List<Movement> {
     val ms =

@@ -12,8 +12,7 @@ object Day13 {
     EQUAL
   }
 
-  private val dividers =
-    listOf(jsonArrayOf(jsonArrayOf(JsonPrimitive(2))), jsonArrayOf(jsonArrayOf(JsonPrimitive(6))))
+  private val dividers = listOf(jsonArrayOf(jsonArrayOf(JsonPrimitive(2))), jsonArrayOf(jsonArrayOf(JsonPrimitive(6))))
 
   fun partOne(lines: List<String>): Int {
     return parse(lines)
@@ -32,9 +31,7 @@ object Day13 {
   }
 
   private fun parse(lines: List<String>): List<JsonArray> {
-    return lines
-      .filter { it.isNotEmpty() }
-      .map { line -> Gson().fromJson(line, JsonArray::class.java) }
+    return lines.filter { it.isNotEmpty() }.map { line -> Gson().fromJson(line, JsonArray::class.java) }
   }
 
   private fun compareTo(f: JsonArray, s: JsonArray, index: Int = 0): Comparison {
@@ -44,8 +41,7 @@ object Day13 {
       index < f.size() && index >= s.size() -> Comparison.GREATER
       else -> {
         val order = compareTo(f.get(index), s.get(index))
-        if (order == Comparison.LESS || order == Comparison.GREATER) order
-        else compareTo(f, s, index + 1)
+        if (order == Comparison.LESS || order == Comparison.GREATER) order else compareTo(f, s, index + 1)
       }
     }
   }

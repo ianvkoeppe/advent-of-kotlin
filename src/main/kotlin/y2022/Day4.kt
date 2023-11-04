@@ -9,10 +9,7 @@ object Day4 {
     return findOverlapsWithCriteria(lines) { f, s -> f.first <= s.first && f.last >= s.first }
   }
 
-  private fun findOverlapsWithCriteria(
-    lines: List<String>,
-    criteria: (IntRange, IntRange) -> Boolean
-  ): Int {
+  private fun findOverlapsWithCriteria(lines: List<String>, criteria: (IntRange, IntRange) -> Boolean): Int {
     return lines.count { line ->
       val (first, second) = line.split(",").map(Day4::parseRange)
       criteria(first, second) || criteria(second, first)

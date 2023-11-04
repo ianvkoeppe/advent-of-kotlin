@@ -20,9 +20,7 @@ object Day10 {
         .map { findSyntaxError(it) }
         .filter { it.first == null }
         .map { (_, remainingOpenChars) ->
-          remainingOpenChars.foldRight(0L) { char, total ->
-            total * 5 + weights.getValue(openToClose.getValue(char))
-          }
+          remainingOpenChars.foldRight(0L) { char, total -> total * 5 + weights.getValue(openToClose.getValue(char)) }
         }
         .sorted()
     return costs[costs.size / 2]

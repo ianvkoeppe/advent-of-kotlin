@@ -13,12 +13,10 @@ object Day5 {
       val yIntercept = if (slope != null) start.y - (slope * start.x) else null
 
       val (minX, maxX) =
-        if (start.x < end.x || (start.x == end.x && start.y < end.y)) Pair(start, end)
-        else Pair(end, start)
+        if (start.x < end.x || (start.x == end.x && start.y < end.y)) Pair(start, end) else Pair(end, start)
       return generateSequence(minX) { point ->
           val (newX, newY) =
-            if (slope != null && yIntercept != null)
-              Pair(point.x + 1, slope * (point.x + 1) + yIntercept)
+            if (slope != null && yIntercept != null) Pair(point.x + 1, slope * (point.x + 1) + yIntercept)
             else Pair(point.x, point.y + 1)
           Point(newX, newY)
         }
@@ -48,9 +46,7 @@ object Day5 {
 
   private fun countIntersections(lines: List<Line>): Int {
     val counts = mutableMapOf<Point, Int>()
-    lines.forEach { line ->
-      line.getPoints().forEach { point -> counts.merge(point, 1, Int::plus) }
-    }
+    lines.forEach { line -> line.getPoints().forEach { point -> counts.merge(point, 1, Int::plus) } }
     return counts.values.count { it >= 2 }
   }
 }

@@ -14,9 +14,7 @@ object Day12 {
   private fun findShortestPathFrom(lines: List<String>, starts: Set<Char>, end: Char = 'E'): Int {
     val hill = lines.map { it.toList() }
     val shortestPaths = findShortestPaths(hill, findCoordinatesOf(hill, setOf(end)).first())
-    return findCoordinatesOf(hill, starts)
-      .filter(shortestPaths::containsKey)
-      .minOf(shortestPaths::getValue)
+    return findCoordinatesOf(hill, starts).filter(shortestPaths::containsKey).minOf(shortestPaths::getValue)
   }
 
   private fun findCoordinatesOf(hill: List<List<Char>>, targets: Set<Char>): List<Pair<Int, Int>> {
@@ -42,16 +40,11 @@ object Day12 {
         .toMap()
     shortestPaths.putAll(newShortestPaths)
     unvisited.addAll(newShortestPaths.keys)
-    return if (unvisited.isNotEmpty())
-      findShortestPaths(hill, unvisited.remove(), shortestPaths, unvisited)
+    return if (unvisited.isNotEmpty()) findShortestPaths(hill, unvisited.remove(), shortestPaths, unvisited)
     else shortestPaths
   }
 
-  private fun isValidPosition(
-    hill: List<List<Char>>,
-    current: Pair<Int, Int>,
-    next: Pair<Int, Int>
-  ): Boolean {
+  private fun isValidPosition(hill: List<List<Char>>, current: Pair<Int, Int>, next: Pair<Int, Int>): Boolean {
     val currentHeight = effectiveHeight(hill, current)
     val nextHeight = effectiveHeight(hill, next)
     return currentHeight != null &&

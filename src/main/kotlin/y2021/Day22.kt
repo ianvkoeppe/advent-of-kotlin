@@ -11,9 +11,7 @@ object Day22 {
   fun partOne(lines: List<String>): Long {
     val instructions = parse(lines).filter { withinFifty(it.area) }
     return run(instructions).sumOf { area ->
-      (area.x.last - area.x.first + 1) *
-        (area.y.last - area.y.first + 1) *
-        (area.z.last - area.z.first + 1)
+      (area.x.last - area.x.first + 1) * (area.y.last - area.y.first + 1) * (area.z.last - area.z.first + 1)
     }
   }
 
@@ -24,9 +22,7 @@ object Day22 {
 
   fun partTwo(lines: List<String>): Long {
     return run(parse(lines)).sumOf { area ->
-      (area.x.last - area.x.first + 1) *
-        (area.y.last - area.y.first + 1) *
-        (area.z.last - area.z.first + 1)
+      (area.x.last - area.x.first + 1) * (area.y.last - area.y.first + 1) * (area.z.last - area.z.first + 1)
     }
   }
 
@@ -59,15 +55,9 @@ object Day22 {
         if (!onX.isEmpty() && !onY.isEmpty() && !onZ.isEmpty()) {
           val xSlices = slice(area.x, onX).map { range -> Area3D(range, area.y, area.z) }
           val remainingAreaForY = Area3D(onX.first..onX.last, area.y, area.z)
-          val ySlices =
-            slice(area.y, onY).map { range ->
-              Area3D(remainingAreaForY.x, range, remainingAreaForY.z)
-            }
+          val ySlices = slice(area.y, onY).map { range -> Area3D(remainingAreaForY.x, range, remainingAreaForY.z) }
           val remainingAreaForZ = Area3D(onX.first..onX.last, onY.first..onY.last, area.z)
-          val zSlices =
-            slice(area.z, onZ).map { range ->
-              Area3D(remainingAreaForZ.x, remainingAreaForZ.y, range)
-            }
+          val zSlices = slice(area.z, onZ).map { range -> Area3D(remainingAreaForZ.x, remainingAreaForZ.y, range) }
 
           xSlices + ySlices + zSlices
         } else listOf(area)
@@ -75,22 +65,15 @@ object Day22 {
     return sliced + if (i.cmd == "on") listOf(i.area) else emptyList()
   }
 
-  private fun intersections(
-    first: Area3D,
-    second: Area3D
-  ): Triple<LongRange, LongRange, LongRange> =
+  private fun intersections(first: Area3D, second: Area3D): Triple<LongRange, LongRange, LongRange> =
     Triple(intersect(first.x, second.x), intersect(first.y, second.y), intersect(first.z, second.z))
 
   private fun intersect(first: LongRange, second: LongRange): LongRange =
     max(first.first, second.first)..min(first.last, second.last)
 
   private fun slice(original: LongRange, intersection: LongRange): List<LongRange> {
-    val first =
-      if (intersection.first > original.first) original.first until intersection.first
-      else LongRange.EMPTY
-    val last =
-      if (original.last > intersection.last) intersection.last + 1..original.last
-      else LongRange.EMPTY
+    val first = if (intersection.first > original.first) original.first until intersection.first else LongRange.EMPTY
+    val last = if (original.last > intersection.last) intersection.last + 1..original.last else LongRange.EMPTY
     return listOf(first, last).filterNot { it.isEmpty() }
   }
 }

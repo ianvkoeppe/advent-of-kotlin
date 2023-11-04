@@ -20,8 +20,7 @@ object Day17 {
 
     fun moveUp(amount: Int): Tetromino = move { (x, y) -> Point(x, y + amount) }
 
-    private fun move(transform: (Point) -> Point): Tetromino =
-      copy(points = points.map(transform).toSet())
+    private fun move(transform: (Point) -> Point): Tetromino = copy(points = points.map(transform).toSet())
   }
 
   data class Placement(val tetromino: Tetromino, val direction: Int)
@@ -34,8 +33,7 @@ object Day17 {
     fun place(tetromino: Tetromino, direction: Int): Field =
       copy(grid = grid + Placement(tetromino, direction), points = points + tetromino.points)
 
-    fun canPlace(point: Point): Boolean =
-      point.x in (0 until width) && point.y >= 0 && !points.contains(point)
+    fun canPlace(point: Point): Boolean = point.x in (0 until width) && point.y >= 0 && !points.contains(point)
 
     fun findCycle(): Field? {
       val tetromino = grid.lastOrNull()
@@ -43,12 +41,9 @@ object Day17 {
         grid.dropLast(1).indexOfLast {
           it.tetromino.type == tetromino?.tetromino?.type && it.direction == tetromino.direction
         }
-      return if (
-        candidateCycleEnd >= 0 && (candidateCycleEnd - (grid.size - candidateCycleEnd) + 1) > 0
-      ) {
+      return if (candidateCycleEnd >= 0 && (candidateCycleEnd - (grid.size - candidateCycleEnd) + 1) > 0) {
         val second = Field(grid.subList(candidateCycleEnd + 1, grid.size))
-        val first =
-          Field(grid.subList(candidateCycleEnd - second.grid.size + 1, candidateCycleEnd + 1))
+        val first = Field(grid.subList(candidateCycleEnd - second.grid.size + 1, candidateCycleEnd + 1))
         if (first.toString() == second.toString()) second else null
       } else null
     }
@@ -72,19 +67,10 @@ object Day17 {
     private val horizontal =
       Tetromino(TetrominoType.HORIZONTAL, setOf(Point(0, 0), Point(1, 0), Point(2, 0), Point(3, 0)))
     private val cross =
-      Tetromino(
-        TetrominoType.CROSS,
-        setOf(Point(1, 0), Point(0, 1), Point(1, 1), Point(2, 1), Point(1, 2))
-      )
-    private val l =
-      Tetromino(
-        TetrominoType.L,
-        setOf(Point(0, 0), Point(1, 0), Point(2, 0), Point(2, 1), Point(2, 2))
-      )
-    private val vertical =
-      Tetromino(TetrominoType.VERTICAL, setOf(Point(0, 0), Point(0, 1), Point(0, 2), Point(0, 3)))
-    private val block =
-      Tetromino(TetrominoType.BLOCK, setOf(Point(0, 0), Point(1, 0), Point(0, 1), Point(1, 1)))
+      Tetromino(TetrominoType.CROSS, setOf(Point(1, 0), Point(0, 1), Point(1, 1), Point(2, 1), Point(1, 2)))
+    private val l = Tetromino(TetrominoType.L, setOf(Point(0, 0), Point(1, 0), Point(2, 0), Point(2, 1), Point(2, 2)))
+    private val vertical = Tetromino(TetrominoType.VERTICAL, setOf(Point(0, 0), Point(0, 1), Point(0, 2), Point(0, 3)))
+    private val block = Tetromino(TetrominoType.BLOCK, setOf(Point(0, 0), Point(1, 0), Point(0, 1), Point(1, 1)))
     private val tetrominoes = listOf(horizontal, cross, l, vertical, block).map { it.moveRight(2) }
 
     fun settleNext(): Tetris = settle(tetrominoes[t].moveUp(field.height() + 3))
@@ -95,12 +81,7 @@ object Day17 {
 
       return when {
         canMoveTo(horizontal.moveDown()) -> copy(d = nextDirection).settle(horizontal.moveDown())
-        else ->
-          copy(
-            field = field.place(horizontal, d),
-            d = nextDirection,
-            t = (t + 1) % tetrominoes.size
-          )
+        else -> copy(field = field.place(horizontal, d), d = nextDirection, t = (t + 1) % tetrominoes.size)
       }
     }
 
@@ -114,17 +95,11 @@ object Day17 {
     private fun canMoveTo(tetromino: Tetromino): Boolean = tetromino.points.all(field::canPlace)
   }
 
-  fun partOne(lines: List<String>): Long =
-    findHeightAfterDropping(Tetris(lines.first().toList()), 2022)
+  fun partOne(lines: List<String>): Long = findHeightAfterDropping(Tetris(lines.first().toList()), 2022)
 
-  fun partTwo(lines: List<String>): Long =
-    findHeightAfterDropping(Tetris(lines.first().toList()), 1000000000000)
+  fun partTwo(lines: List<String>): Long = findHeightAfterDropping(Tetris(lines.first().toList()), 1000000000000)
 
-  private tailrec fun findHeightAfterDropping(
-    tetris: Tetris,
-    remaining: Long,
-    heightViaCycles: Long = 0
-  ): Long {
+  private tailrec fun findHeightAfterDropping(tetris: Tetris, remaining: Long, heightViaCycles: Long = 0): Long {
     if (remaining == 0L) return tetris.field.height().toLong() + heightViaCycles
 
     val dropped = tetris.settleNext()

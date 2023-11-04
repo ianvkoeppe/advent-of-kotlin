@@ -7,9 +7,7 @@ object Day21 {
 
   private val diracRolls: Map<Int, Int> =
     (1..3)
-      .flatMap { first ->
-        (1..3).flatMap { second -> (1..3).map { third -> first + second + third } }
-      }
+      .flatMap { first -> (1..3).flatMap { second -> (1..3).map { third -> first + second + third } } }
       .groupingBy { it }
       .eachCount()
 
@@ -44,17 +42,14 @@ object Day21 {
     winningScore: Int,
     state: GameState = GameState(players.associate { it.n to it.initialPosition }, mapOf(), 0)
   ): Map<Int, Long> {
-    if (state.scores.values.any { it >= winningScore })
-      return mapOf(state.scores.maxByOrNull { it.value }!!.key to 1)
+    if (state.scores.values.any { it >= winningScore }) return mapOf(state.scores.maxByOrNull { it.value }!!.key to 1)
 
     return diracRolls
       .map { (roll, count) ->
-        countUniverses(
-            players.drop(1) + players.first(),
-            winningScore,
-            turn(players.first(), state, roll)
-          )
-          .mapValues { (_, v) -> count * v }
+        countUniverses(players.drop(1) + players.first(), winningScore, turn(players.first(), state, roll)).mapValues {
+          (_, v) ->
+          count * v
+        }
       }
       .reduce { a, b -> (a.keys + b.keys).associateWith { (a[it] ?: 0) + (b[it] ?: 0) } }
   }
@@ -65,10 +60,8 @@ object Day21 {
 
   private fun turn(player: Player, state: GameState, roll: Int): GameState {
     val afterRoll = roll + state.positions.getValue(player.n)
-    val position =
-      if (afterRoll % 10 == 0) 10 else if (afterRoll > 10) afterRoll % 10 else afterRoll
-    val updatedScore =
-      state.scores + (player.n to state.scores.getOrDefault(player.n, 0) + position)
+    val position = if (afterRoll % 10 == 0) 10 else if (afterRoll > 10) afterRoll % 10 else afterRoll
+    val updatedScore = state.scores + (player.n to state.scores.getOrDefault(player.n, 0) + position)
     return state.copy(
       positions = state.positions + (player.n to position),
       scores = updatedScore,

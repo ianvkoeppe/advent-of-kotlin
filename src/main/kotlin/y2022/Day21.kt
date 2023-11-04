@@ -1,11 +1,7 @@
 package y2022
 
 object Day21 {
-  data class Expression(
-    val id: String? = null,
-    val value: Long? = null,
-    val operation: Operation? = null
-  ) {
+  data class Expression(val id: String? = null, val value: Long? = null, val operation: Operation? = null) {
     fun canSolve(): Boolean = id == null && (operation?.canSolve() ?: true)
 
     fun eval(): Long = value ?: operation!!.eval()
@@ -25,8 +21,7 @@ object Day21 {
       return findUnsolvableExpression()?.evalOtherSide(solved) ?: solved
     }
 
-    fun findSolvableSide(): Long =
-      if (operation!!.lhs.canSolve()) operation.lhs.eval() else operation.rhs.eval()
+    fun findSolvableSide(): Long = if (operation!!.lhs.canSolve()) operation.lhs.eval() else operation.rhs.eval()
 
     fun findUnsolvableExpression(): Expression? =
       if (operation?.lhs?.canSolve() == true) operation.rhs else operation?.lhs
@@ -45,8 +40,7 @@ object Day21 {
     fun findValue(monkey: String): Long = resolveExpressions(monkey).eval()
 
     fun solveEquality(expression: Expression = resolveExpressions("root")): Long {
-      return expression.findUnsolvableExpression()?.evalOtherSide(expression.findSolvableSide())
-        ?: 0
+      return expression.findUnsolvableExpression()?.evalOtherSide(expression.findSolvableSide()) ?: 0
     }
 
     private fun resolveExpressions(id: String): Expression {
@@ -70,8 +64,7 @@ object Day21 {
 
   fun partOne(lines: List<String>): Long = Troop(parse(lines)).findValue("root")
 
-  fun partTwo(lines: List<String>): Long =
-    Troop(parse(lines) + ("humn" to Expression("x"))).solveEquality()
+  fun partTwo(lines: List<String>): Long = Troop(parse(lines) + ("humn" to Expression("x"))).solveEquality()
 
   private val operation = "([a-z]+): ([a-z]+) ([+\\-*/]) ([a-z]+)".toRegex()
   private val number = "([a-z]+): (\\d+)".toRegex()

@@ -5,9 +5,7 @@ object Day3 {
   fun partOne(lines: List<String>): Int {
     return lines
       .map { rucksack ->
-        findSharedChar(
-          listOf(rucksack.take(rucksack.length / 2), rucksack.drop(rucksack.length / 2))
-        )
+        findSharedChar(listOf(rucksack.take(rucksack.length / 2), rucksack.drop(rucksack.length / 2)))
       }
       .sumOf { toPriority(it) }
   }
@@ -17,11 +15,8 @@ object Day3 {
   }
 
   private fun findSharedChar(sacks: List<String>): Char {
-    return sacks
-      .reduce { candidates, sack -> candidates.toSet().intersect(sack.toSet()).joinToString("") }
-      .first()
+    return sacks.reduce { candidates, sack -> candidates.toSet().intersect(sack.toSet()).joinToString("") }.first()
   }
 
-  private fun toPriority(c: Char) =
-    (if (c >= 'a') c.code - 'a'.code else c.code - 'A'.code + 26) + 1
+  private fun toPriority(c: Char) = (if (c >= 'a') c.code - 'a'.code else c.code - 'A'.code + 26) + 1
 }
