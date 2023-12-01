@@ -42,7 +42,7 @@ object Day2 {
   }
 
   private fun choiceByDesiredOutcome(theirMove: Choice, desiredOutcome: Char): Choice =
-    Choice.values()[(theirMove.ordinal + (desiredOutcome.code - 'Y'.code) + 3) % 3]
+    Choice.entries[(theirMove.ordinal + (desiredOutcome.code - 'Y'.code) + 3) % 3]
 
   private fun score(theirMove: Choice, yourMove: Choice): Int {
     return yourMove.ordinal +
