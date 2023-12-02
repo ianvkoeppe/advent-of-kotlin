@@ -1,9 +1,9 @@
 package y2021
 
 object Day5 {
-  data class Point(val x: Int, val y: Int)
+  private data class Point(val x: Int, val y: Int)
 
-  data class Line(val start: Point, val end: Point) {
+  private data class Line(val start: Point, val end: Point) {
     fun isHorizontalOrVeritcal(): Boolean {
       return start.x == end.x || start.y == end.y
     }

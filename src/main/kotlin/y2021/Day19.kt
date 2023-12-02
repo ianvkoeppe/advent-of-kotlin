@@ -3,11 +3,11 @@ package y2021
 import kotlin.math.abs
 
 object Day19 {
-  data class Point3D(val x: Int, val y: Int, val z: Int)
+  private data class Point3D(val x: Int, val y: Int, val z: Int)
 
-  data class Scanner(val number: Int, val beacons: Set<Point3D>)
+  private data class Scanner(val number: Int, val beacons: Set<Point3D>)
 
-  data class LocatedScanner(val number: Int, val beacons: Set<Point3D>, val position: Point3D)
+  private data class LocatedScanner(val number: Int, val beacons: Set<Point3D>, val position: Point3D)
 
   private val identity: (Point3D) -> Point3D = { it }
   private val xRotation: (Point3D) -> Point3D = { (x, y, z) -> Point3D(x, -z, y) }

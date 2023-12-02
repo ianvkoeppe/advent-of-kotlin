@@ -1,7 +1,7 @@
 package y2022
 
 object Day21 {
-  data class Expression(val id: String? = null, val value: Long? = null, val operation: Operation? = null) {
+  private data class Expression(val id: String? = null, val value: Long? = null, val operation: Operation? = null) {
     fun canSolve(): Boolean = id == null && (operation?.canSolve() ?: true)
 
     fun eval(): Long = value ?: operation!!.eval()
@@ -27,7 +27,7 @@ object Day21 {
       if (operation?.lhs?.canSolve() == true) operation.rhs else operation?.lhs
   }
 
-  data class Operation(val lhs: Expression, val op: String, val rhs: Expression) {
+  private data class Operation(val lhs: Expression, val op: String, val rhs: Expression) {
     private val operations: Map<String, (Long, Long) -> Long> =
       mapOf("+" to Long::plus, "-" to Long::minus, "*" to Long::times, "/" to Long::div)
 
@@ -36,7 +36,7 @@ object Day21 {
     fun eval(): Long = operations.getValue(op)(lhs.eval(), rhs.eval())
   }
 
-  data class Troop(val monkeys: Map<String, Expression>) {
+  private data class Troop(val monkeys: Map<String, Expression>) {
     fun findValue(monkey: String): Long = resolveExpressions(monkey).eval()
 
     fun solveEquality(expression: Expression = resolveExpressions("root")): Long {

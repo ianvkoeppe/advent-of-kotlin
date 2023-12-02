@@ -1,9 +1,9 @@
 package y2021
 
 object Day21 {
-  data class Player(val n: Int, val initialPosition: Int)
+  private data class Player(val n: Int, val initialPosition: Int)
 
-  data class GameState(val positions: Map<Int, Int>, val scores: Map<Int, Int>, val turn: Int)
+  private data class GameState(val positions: Map<Int, Int>, val scores: Map<Int, Int>, val turn: Int)
 
   private val diracRolls: Map<Int, Int> =
     (1..3)

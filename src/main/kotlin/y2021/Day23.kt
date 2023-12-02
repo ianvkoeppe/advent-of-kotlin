@@ -5,7 +5,7 @@ import kotlin.math.max
 import kotlin.math.min
 
 object Day23 {
-  data class Burrow(val hallway: List<Char>, val rooms: Map<Char, List<Char>>, val cost: Int = 0) {
+  private data class Burrow(val hallway: List<Char>, val rooms: Map<Char, List<Char>>, val cost: Int = 0) {
 
     private val costMagnitudes = mapOf('A' to 1, 'B' to 10, 'C' to 100, 'D' to 1000)
     private val roomEntrancePositions = mapOf('A' to 2, 'B' to 4, 'C' to 6, 'D' to 8)

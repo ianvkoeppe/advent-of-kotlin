@@ -4,9 +4,15 @@ import kotlin.math.max
 import kotlin.math.min
 
 object Day16 {
-  data class Offset(val start: Int, val length: Int = 0)
+  private data class Offset(val start: Int, val length: Int = 0)
 
-  data class Packet(val version: Int, val type: Int, val value: Long?, val packets: List<Packet>, val binary: String)
+  private data class Packet(
+    val version: Int,
+    val type: Int,
+    val value: Long?,
+    val packets: List<Packet>,
+    val binary: String
+  )
 
   private val hexes = listOf('0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F')
   private val hexToBinary =

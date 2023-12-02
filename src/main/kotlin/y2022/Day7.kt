@@ -1,18 +1,18 @@
 package y2022
 
 object Day7 {
-  interface Path {
+  private interface Path {
     val name: String
     val parent: Dir?
 
     fun size(): Long
   }
 
-  data class File(override val name: String, override val parent: Dir, val size: Long) : Path {
+  private data class File(override val name: String, override val parent: Dir, val size: Long) : Path {
     override fun size(): Long = size
   }
 
-  data class Dir(
+  private data class Dir(
     override val name: String,
     override val parent: Dir? = null,
     val children: MutableList<Path> = mutableListOf()

@@ -1,7 +1,7 @@
 package y2022
 
 object Day5 {
-  data class Move(val amount: Int, val from: Int, val to: Int)
+  private data class Move(val amount: Int, val from: Int, val to: Int)
 
   fun partOne(lines: List<String>): String {
     return moveAndFindTopCrates(lines) { stacks, move ->

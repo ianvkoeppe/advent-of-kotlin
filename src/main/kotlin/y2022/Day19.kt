@@ -11,7 +11,7 @@ object Day19 {
     ORE
   }
 
-  data class Blueprint(
+  private data class Blueprint(
     val costs: Map<Resource, Map<Resource, Int>>,
     val robots: Map<Resource, Int> = mapOf(Resource.ORE to 1),
     val resources: Map<Resource, Int> = mapOf()

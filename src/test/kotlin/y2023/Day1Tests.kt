@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test
 class Day1Tests {
   @Test
   fun partOneExample() {
-    assertThat(Day1.partOne(Filer.read(1, 2023, "example-1.txt"))).isEqualTo(142)
+    assertThat(Day1.partOne(Filer.read(2023, 1, "example-1.txt"))).isEqualTo(142)
   }
 
   @Test
@@ -17,7 +17,7 @@ class Day1Tests {
 
   @Test
   fun partTwoExample() {
-    assertThat(Day1.partTwo(Filer.read(1, 2023, "example-2.txt"))).isEqualTo(281)
+    assertThat(Day1.partTwo(Filer.read(2023, 1, "example-2.txt"))).isEqualTo(281)
   }
 
   @Test

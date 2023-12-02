@@ -3,9 +3,9 @@ package y2022
 import kotlin.math.abs
 
 object Day23 {
-  data class Point(val x: Int, val y: Int)
+  private data class Point(val x: Int, val y: Int)
 
-  data class Crater(val elves: Set<Point>, val rounds: Int = 0) {
+  private data class Crater(val elves: Set<Point>, val rounds: Int = 0) {
     private val surroundingSquares = listOf(1 to 0, 1 to -1, 0 to -1, -1 to -1, -1 to 0, -1 to 1, 0 to 1, 1 to 1)
     private val north = surroundingSquares.filter { (_, y) -> y == -1 }
     private val south = surroundingSquares.filter { (_, y) -> y == 1 }

@@ -1,15 +1,15 @@
 package y2022
 
 object Day16 {
-  data class Valve(val name: String, val flowRate: Int, val tunnels: Map<String, Int>)
+  private data class Valve(val name: String, val flowRate: Int, val tunnels: Map<String, Int>)
 
-  data class Position(val name: String = "Ian", val timeToErupt: Int = 30, val valve: String = "AA")
+  private data class Position(val name: String = "Ian", val timeToErupt: Int = 30, val valve: String = "AA")
 
-  data class Movement(val from: Position, val to: String, val timeToMoveToAndOpen: Int, val release: Int) {
+  private data class Movement(val from: Position, val to: String, val timeToMoveToAndOpen: Int, val release: Int) {
     fun distinctKey(): String = "${from.timeToErupt}: ${from.valve}=>${to}"
   }
 
-  data class Volcano(
+  private data class Volcano(
     val tunnels: Map<String, Valve>,
     val positions: List<Position> = listOf(Position()),
     val opened: Set<String> = setOf(),

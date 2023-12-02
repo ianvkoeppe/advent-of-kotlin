@@ -15,7 +15,7 @@ object Day25 {
       .foldIndexed(0L) { place, total, digit -> total + digit * 5.toDouble().pow(place.toDouble()).toLong() }
   }
 
-  data class SnafuBuilder(val snafu: List<Char> = listOf(), val carryOver: Int = 0) {
+  private data class SnafuBuilder(val snafu: List<Char> = listOf(), val carryOver: Int = 0) {
     override fun toString(): String = snafu.joinToString("")
   }
 

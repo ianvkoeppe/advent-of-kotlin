@@ -1,11 +1,11 @@
 package y2022
 
 object Day11 {
-  data class Test(val divisor: Int, private val trueMonkey: Int, private val falseMonkey: Int) {
+  private data class Test(val divisor: Int, private val trueMonkey: Int, private val falseMonkey: Int) {
     fun findMonkeyToPassTo(value: Long): Int = if (value % divisor == 0L) trueMonkey else falseMonkey
   }
 
-  data class Monkey(
+  private data class Monkey(
     val number: Int,
     val items: List<Long>,
     val operation: (Long) -> Long,
@@ -18,7 +18,7 @@ object Day11 {
     fun findMonkeyToPassTo(item: Long): Int = test.findMonkeyToPassTo(item)
   }
 
-  data class Troop(val monkeys: List<Monkey>) {
+  private data class Troop(val monkeys: List<Monkey>) {
     fun monkeyAround(current: Monkey, stressManagementTechnique: (Long) -> Long): Troop {
       val toPass =
         current.items

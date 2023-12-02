@@ -3,7 +3,7 @@ package y2022
 import kotlin.math.abs
 
 object Day20 {
-  data class Node<T>(val v: T, var prev: Node<T>? = null, var next: Node<T>? = null) {
+  private data class Node<T>(val v: T, var prev: Node<T>? = null, var next: Node<T>? = null) {
     fun move(times: Int, node: Node<T> = this) =
       if (times >= 0) moveTowardsTail(node, times) else moveTowardsHead(node, -times)
 
@@ -36,7 +36,7 @@ object Day20 {
     }
   }
 
-  data class EncryptedNumbers(private val head: Node<Long>, val original: List<Node<Long>>) {
+  private data class EncryptedNumbers(private val head: Node<Long>, val original: List<Node<Long>>) {
     companion object Factory {
       fun from(values: List<Long>): EncryptedNumbers {
         val nodes = values.map(::Node)

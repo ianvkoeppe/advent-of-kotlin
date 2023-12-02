@@ -3,11 +3,11 @@ package y2022
 import kotlin.math.abs
 
 object Day9 {
-  data class Movement(val direction: Char, val amount: Int)
+  private data class Movement(val direction: Char, val amount: Int)
 
-  data class Position(val x: Int, val y: Int)
+  private data class Position(val x: Int, val y: Int)
 
-  data class KnottedRope(val head: Position, val tails: List<Position>)
+  private data class KnottedRope(val head: Position, val tails: List<Position>)
 
   private val surroundingSquares =
     listOf((1 to 0), (1 to -1), (0 to -1), (-1 to -1), (-1 to 0), (-1 to 1), (0 to 1), (1 to 1))

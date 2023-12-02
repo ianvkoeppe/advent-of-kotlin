@@ -3,7 +3,7 @@ package y2021
 import kotlin.math.abs
 
 object Day2 {
-  data class Position(val x: Long = 0, val y: Long = 0, val aim: Long = 0)
+  private data class Position(val x: Long = 0, val y: Long = 0, val aim: Long = 0)
 
   fun partOne(lines: List<String>): Long {
     val position =
