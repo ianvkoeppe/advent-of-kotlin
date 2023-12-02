@@ -1,9 +1,9 @@
 package y2022
 
 object Day24 {
-  data class Position(val x: Int, val y: Int)
+  private data class Position(val x: Int, val y: Int)
 
-  data class Valley(
+  private data class Valley(
     val tiles: Map<Position, Set<Char>>,
     val minutes: Int = 0,
     val width: Int = tiles.maxOf { it.key.x },

@@ -1,9 +1,9 @@
 package y2022
 
 object Day10 {
-  data class Instruction(val cmd: String, val amount: Int? = null)
+  private data class Instruction(val cmd: String, val amount: Int? = null)
 
-  data class State(
+  private data class State(
     private val register: List<Int> = listOf(1),
     private val cycle: Int = 0,
     private val screen: List<Char> = listOf()

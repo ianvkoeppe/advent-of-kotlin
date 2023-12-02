@@ -3,7 +3,7 @@ package y2021
 import java.util.*
 
 object Day15 {
-  data class Node(val x: Int, val y: Int)
+  private data class Node(val x: Int, val y: Int)
 
   private val adjacentSquares = listOf((1 to 0), (0 to 1), (-1 to 0), (0 to -1))
 

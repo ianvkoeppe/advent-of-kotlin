@@ -10,13 +10,13 @@ object Day15 {
 
   private fun Pair<Int, Int>.intersects(other: Pair<Int, Int>): Boolean = first <= other.second && second >= other.first
 
-  data class Point(val x: Int, val y: Int) {
+  private data class Point(val x: Int, val y: Int) {
     fun manhattanDistance(other: Point) = abs(x - other.x) + abs(y - other.y)
 
     fun tuningFrequency(): Long = x.toLong() * 4000000 + y.toLong()
   }
 
-  data class IdentifiedSignal(
+  private data class IdentifiedSignal(
     val sensor: Point,
     val beacon: Point,
     val height: Int = sensor.manhattanDistance(beacon)
@@ -47,7 +47,7 @@ object Day15 {
       range.first <= beacon.x && beacon.x <= range.second && beacon.y == y
   }
 
-  data class Signals(val signals: List<IdentifiedSignal>) {
+  private data class Signals(val signals: List<IdentifiedSignal>) {
     fun countRangeOfSignalsAt(y: Int): Int {
       val ranges = findRangeOfSignalsAt(y)
       return ranges.sumOf { (start, end) -> end - start + 1 } - countOverlappingBeacons(ranges, y)

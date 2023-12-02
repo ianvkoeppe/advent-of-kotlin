@@ -1,7 +1,7 @@
 package y2022
 
 object Day8 {
-  data class Visibility<T>(val up: T, val right: T, val down: T, val left: T)
+  private data class Visibility<T>(val up: T, val right: T, val down: T, val left: T)
 
   fun partOne(lines: List<String>): Int {
     return countWithScore(lines) { current, neighbors -> neighbors.all { it < current } }

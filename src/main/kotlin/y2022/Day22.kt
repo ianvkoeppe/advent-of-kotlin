@@ -9,11 +9,11 @@ object Day22 {
 
   class Steps(val times: Int) : Movement
 
-  data class Point(val x: Int, val y: Int) {
+  private data class Point(val x: Int, val y: Int) {
     fun manhattanDistance(other: Point): Int = abs(other.x - x) + abs(other.y - y)
   }
 
-  data class LineSegment(val start: Point, val end: Point) {
+  private data class LineSegment(val start: Point, val end: Point) {
     fun isHorizontal(): Boolean = start.y == end.y
 
     fun contains(point: Point): Boolean =
@@ -48,11 +48,11 @@ object Day22 {
       Direction.values()[(ordinal + clockwise + Direction.values().size) % Direction.values().size]
   }
 
-  data class Position(val point: Point, val direction: Direction = Direction.EAST) {
+  private data class Position(val point: Point, val direction: Direction = Direction.EAST) {
     fun findPassword(): Int = 4 * (point.x + 1) + 1000 * (point.y + 1) + direction.ordinal
   }
 
-  data class Board(val points: Map<Point, Char>, val sizeOfEdge: Int) {
+  private data class Board(val points: Map<Point, Char>, val sizeOfEdge: Int) {
     private val adjacentSquares = listOf((1 to 0), (0 to 1), (-1 to 0), (0 to -1))
 
     fun findStartPosition(): Position =
@@ -173,7 +173,7 @@ object Day22 {
     }
   }
 
-  data class BoardMap(val points: Map<Point, Char>, val links: Map<Position, Position>) {
+  private data class BoardMap(val points: Map<Point, Char>, val links: Map<Position, Position>) {
     tailrec fun move(position: Position, movements: List<Movement>, movement: Int = 0): Position {
       if (movement == movements.size) return position
 

@@ -3,13 +3,13 @@ package y2022
 import kotlin.math.abs
 
 object Day18 {
-  data class Cube(val x: Int, val y: Int, val z: Int) {
+  private data class Cube(val x: Int, val y: Int, val z: Int) {
     fun manhattanDistance(other: Cube): Int = abs(x - other.x) + abs(y - other.y) + abs(z - other.z)
   }
 
-  data class AirPockets(val isInterior: Boolean, val pockets: Set<Cube>)
+  private data class AirPockets(val isInterior: Boolean, val pockets: Set<Cube>)
 
-  data class PartitionedAirPockets(val interior: Set<Cube> = setOf(), val exterior: Set<Cube> = setOf()) {
+  private data class PartitionedAirPockets(val interior: Set<Cube> = setOf(), val exterior: Set<Cube> = setOf()) {
     fun add(pockets: AirPockets): PartitionedAirPockets =
       if (pockets.isInterior) copy(interior = interior + pockets.pockets)
       else copy(exterior = exterior + pockets.pockets)
@@ -17,7 +17,7 @@ object Day18 {
     fun contains(pocket: Cube) = interior.contains(pocket) || exterior.contains(pocket)
   }
 
-  data class LavaDroplet(val cubes: Set<Cube>) {
+  private data class LavaDroplet(val cubes: Set<Cube>) {
     private val adjacentCubes =
       listOf(Cube(-1, 0, 0), Cube(1, 0, 0), Cube(0, -1, 0), Cube(0, 1, 0), Cube(0, 0, -1), Cube(0, 0, 1))
     private val min: Cube = Cube(cubes.minOf { it.x }, cubes.minOf { it.y }, cubes.minOf { it.z })

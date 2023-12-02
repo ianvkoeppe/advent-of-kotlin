@@ -4,9 +4,9 @@ import kotlin.math.max
 import kotlin.math.min
 
 object Day22 {
-  data class Area3D(val x: LongRange, val y: LongRange, val z: LongRange)
+  private data class Area3D(val x: LongRange, val y: LongRange, val z: LongRange)
 
-  data class Instruction(val cmd: String, val area: Area3D)
+  private data class Instruction(val cmd: String, val area: Area3D)
 
   fun partOne(lines: List<String>): Long {
     val instructions = parse(lines).filter { withinFifty(it.area) }

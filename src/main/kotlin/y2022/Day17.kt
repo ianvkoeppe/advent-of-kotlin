@@ -1,7 +1,7 @@
 package y2022
 
 object Day17 {
-  data class Point(val x: Int, val y: Int)
+  private data class Point(val x: Int, val y: Int)
 
   enum class TetrominoType {
     HORIZONTAL,
@@ -11,7 +11,7 @@ object Day17 {
     BLOCK
   }
 
-  data class Tetromino(val type: TetrominoType, val points: Set<Point>) {
+  private data class Tetromino(val type: TetrominoType, val points: Set<Point>) {
     fun moveLeft(): Tetromino = move { (x, y) -> Point(x - 1, y) }
 
     fun moveRight(amount: Int = 1): Tetromino = move { (x, y) -> Point(x + amount, y) }
@@ -23,9 +23,9 @@ object Day17 {
     private fun move(transform: (Point) -> Point): Tetromino = copy(points = points.map(transform).toSet())
   }
 
-  data class Placement(val tetromino: Tetromino, val direction: Int)
+  private data class Placement(val tetromino: Tetromino, val direction: Int)
 
-  data class Field(
+  private data class Field(
     val grid: List<Placement> = listOf(),
     private val points: Set<Point> = grid.flatMap { it.tetromino.points }.toSet(),
     val width: Int = 7
@@ -58,7 +58,7 @@ object Day17 {
       }
   }
 
-  data class Tetris(
+  private data class Tetris(
     private val directions: List<Char>,
     val field: Field = Field(),
     private val d: Int = 0,

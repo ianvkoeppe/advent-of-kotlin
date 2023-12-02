@@ -4,7 +4,7 @@ import kotlin.math.max
 import kotlin.math.min
 
 object Day14 {
-  data class Cave(
+  private data class Cave(
     val walls: Set<Pair<Int, Int>>,
     val maxDepth: Int? = null,
     val lowestWall: Int = walls.maxOf { it.second },
