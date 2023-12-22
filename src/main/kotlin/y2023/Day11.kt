@@ -24,5 +24,5 @@ object Day11 {
 
   fun partOne(lines: List<String>): Long = Universe(lines).findSumOfShortestDistances()
 
-  fun partTwo(lines: List<String>, expansion: Int = 1): Long = Universe(lines).findSumOfShortestDistances(expansion)
+  fun partTwo(lines: List<String>, expansion: Int): Long = Universe(lines).findSumOfShortestDistances(expansion)
 }
