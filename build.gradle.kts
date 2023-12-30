@@ -31,6 +31,8 @@ configure<com.diffplug.gradle.spotless.SpotlessExtension> {
 
 tasks.test {
   useJUnitPlatform()
+
+  maxHeapSize = "2g"
   systemProperty("junit.jupiter.execution.parallel.enabled", "true")
   systemProperty("junit.jupiter.execution.parallel.mode.default", "concurrent")
   systemProperty("junit.jupiter.execution.parallel.mode.classes.default", "concurrent")
