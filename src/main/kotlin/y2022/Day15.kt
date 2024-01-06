@@ -31,8 +31,7 @@ object Day15 {
               .map { (adjX, adjY) -> Point(x + adjX, y + adjY) }
               .filter { (x, y) -> x in min..max && y in min..max }
           }
-        }
-          ?: listOf()
+        } ?: listOf()
       }
     }
 

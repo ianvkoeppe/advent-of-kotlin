@@ -59,8 +59,7 @@ object Day16 {
               .find { it.from == position }
               ?.let { movement ->
                 position.copy(valve = movement.to, timeToErupt = position.timeToErupt - movement.timeToMoveToAndOpen)
-              }
-              ?: position
+              } ?: position
           },
         opened = opened + movements.map { it.to },
         released = released + movements.sumOf { it.release }
