@@ -33,8 +33,7 @@ object Day19 {
           .map { second -> diff(first.position, second.position) }
           .maxOf { diff -> abs(diff.x) + abs(diff.y) + abs(diff.z) }
       }
-      .maxOrNull()
-      ?: 0
+      .maxOrNull() ?: 0
   }
 
   private fun parse(lines: List<String>): List<Scanner> {

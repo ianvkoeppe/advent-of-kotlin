@@ -1,7 +1,7 @@
 plugins {
   application
-  kotlin("jvm") version "1.9.10"
-  id("com.diffplug.spotless") version "6.22.0"
+  kotlin("jvm") version "+"
+  id("com.diffplug.spotless") version "+"
 }
 
 group = "ianvkoeppe"
