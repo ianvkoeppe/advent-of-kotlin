@@ -59,7 +59,7 @@ object Day21 {
       return current
         .parallelStream()
         .flatMap { point ->
-          point.neighbors().stream().filter(isInBounds).filter { (x, y) ->
+          point.adjacentPoints().stream().filter(isInBounds).filter { (x, y) ->
             val inY = (if (y >= 0) y else ((y % grid.size) + grid.size)) % grid.size
             val inX = (if (x >= 0) x else ((x % grid[inY].size) + grid[inY].size)) % grid[inY].size
             grid[inY][inX] in emptySquares
