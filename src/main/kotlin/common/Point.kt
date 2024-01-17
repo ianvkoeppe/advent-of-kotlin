@@ -1,6 +1,6 @@
 package common
 
-data class Point(val x: Int, val y: Int) {
+data class Point(val x: Int, val y: Int, val z: Int = 0) {
   fun adjacentPoints(): Set<Point> = setOf(up(), right(), down(), left())
 
   private fun up(): Point = copy(y = y - 1)
