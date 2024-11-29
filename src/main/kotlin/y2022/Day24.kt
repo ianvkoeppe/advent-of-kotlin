@@ -7,7 +7,7 @@ object Day24 {
     val tiles: Map<Position, Set<Char>>,
     val minutes: Int = 0,
     val width: Int = tiles.maxOf { it.key.x },
-    val height: Int = tiles.maxOf { it.key.y }
+    val height: Int = tiles.maxOf { it.key.y },
   ) {
     private val start = Position(1, 0)
     private val end = Position(width - 1, height)
@@ -17,7 +17,7 @@ object Day24 {
         '^' to { position, _, height -> position.copy(y = bound(position.y - 1, 1, height - 1)) },
         '>' to { position, width, _ -> position.copy(x = bound(position.x + 1, 1, width - 1)) },
         'v' to { position, _, height -> position.copy(y = bound(position.y + 1, 1, height - 1)) },
-        '<' to { position, width, _ -> position.copy(x = bound(position.x - 1, 1, width - 1)) }
+        '<' to { position, width, _ -> position.copy(x = bound(position.x - 1, 1, width - 1)) },
       )
 
     fun crossSafely(positions: Set<Position> = setOf(start), end: Position = this.end): Valley {
@@ -40,7 +40,7 @@ object Day24 {
               }
             }
           ),
-        minutes = minutes + 1
+        minutes = minutes + 1,
       )
 
     private fun blizzard(position: Position, blizzard: Char): Position =

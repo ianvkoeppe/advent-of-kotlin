@@ -8,16 +8,14 @@ object Day19 {
       fun of(category: String, operation: String, amount: Long, destination: String): Rule {
         return Rule(
           category,
-          if (operation == "<") (maxRange.first ..< amount) else ((amount + 1)..maxRange.last),
-          destination
+          if (operation == "<") (maxRange.first..<amount) else ((amount + 1)..maxRange.last),
+          destination,
         )
       }
     }
 
     fun negate(): Rule =
-      copy(
-        range = if (range.first == maxRange.first) (range.last + 1)..maxRange.last else maxRange.first ..< range.first
-      )
+      copy(range = if (range.first == maxRange.first) (range.last + 1)..maxRange.last else maxRange.first..<range.first)
 
     fun constrain(configuration: AcceptableConfiguration): AcceptableConfiguration {
       val currentRange = configuration.categories.getValue(category)
@@ -86,7 +84,7 @@ object Day19 {
 
     fun findAllAcceptableConfigurations(
       workflowName: String = "in",
-      configuration: AcceptableConfiguration = AcceptableConfiguration()
+      configuration: AcceptableConfiguration = AcceptableConfiguration(),
     ): List<AcceptableConfiguration> {
       if (workflowName == "A") return listOf(configuration)
       if (workflowName == "R") return listOf()

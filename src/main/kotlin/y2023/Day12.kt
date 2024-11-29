@@ -4,7 +4,7 @@ object Day12 {
   private data class ConditionRecord(
     val springs: String,
     val layout: List<Int>,
-    val isCountingSprings: Boolean = false
+    val isCountingSprings: Boolean = false,
   )
 
   fun partOne(lines: List<String>): Long = parse(lines).sumOf(::countArrangements)

@@ -21,7 +21,7 @@ object Day14 {
   private fun findMaxMinDifferenceOfElementFrequenciesAfterSteps(
     template: String,
     rules: Map<String, String>,
-    steps: Int
+    steps: Int,
   ): Long {
     val elementPairs =
       template.zipWithNext { a, b -> a.toString() + b }.groupingBy { it }.eachCount().mapValues { it.value.toLong() }

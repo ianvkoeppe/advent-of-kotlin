@@ -55,7 +55,7 @@ object Day16 {
 
     tailrec fun findLitSpaces(
       unseen: ArrayDeque<Pos> = ArrayDeque(listOf(Pos(0, 0, Orientation.RIGHT))),
-      seen: MutableSet<Pos> = mutableSetOf()
+      seen: MutableSet<Pos> = mutableSetOf(),
     ): Set<Pos> {
       if (unseen.isEmpty()) return seen.distinctBy { pos -> pos.x to pos.y }.toSet()
 

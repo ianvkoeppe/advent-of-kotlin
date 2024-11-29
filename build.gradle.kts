@@ -8,7 +8,7 @@ group = "ianvkoeppe"
 
 version = "1.0.0"
 
-kotlin { jvmToolchain(17) }
+kotlin { jvmToolchain(23) }
 
 repositories { mavenCentral() }
 

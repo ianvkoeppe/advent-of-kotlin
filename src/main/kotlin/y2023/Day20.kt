@@ -43,7 +43,7 @@ object Day20 {
   private data class FlipFlopModule(
     override val name: String,
     override val destinations: List<String>,
-    var state: Boolean = false
+    var state: Boolean = false,
   ) : Module(name, destinations) {
     override fun receive(sender: String, high: Boolean): Pulse {
       state = if (high) state else !state
@@ -54,7 +54,7 @@ object Day20 {
   private data class ConjunctionModule(
     override val name: String,
     override val destinations: List<String>,
-    val previous: MutableMap<String, Boolean> = mutableMapOf()
+    val previous: MutableMap<String, Boolean> = mutableMapOf(),
   ) : Module(name, destinations) {
     override fun receive(sender: String, high: Boolean): Pulse {
       previous[sender] = high

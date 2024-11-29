@@ -8,7 +8,7 @@ object Day17 {
     CROSS,
     L,
     VERTICAL,
-    BLOCK
+    BLOCK,
   }
 
   private data class Tetromino(val type: TetrominoType, val points: Set<Point>) {
@@ -28,7 +28,7 @@ object Day17 {
   private data class Field(
     val grid: List<Placement> = listOf(),
     private val points: Set<Point> = grid.flatMap { it.tetromino.points }.toSet(),
-    val width: Int = 7
+    val width: Int = 7,
   ) {
     fun place(tetromino: Tetromino, direction: Int): Field =
       copy(grid = grid + Placement(tetromino, direction), points = points + tetromino.points)
@@ -62,7 +62,7 @@ object Day17 {
     private val directions: List<Char>,
     val field: Field = Field(),
     private val d: Int = 0,
-    private val t: Int = 0
+    private val t: Int = 0,
   ) {
     private val horizontal =
       Tetromino(TetrominoType.HORIZONTAL, setOf(Point(0, 0), Point(1, 0), Point(2, 0), Point(3, 0)))

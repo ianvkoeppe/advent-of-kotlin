@@ -22,7 +22,7 @@ object Day12 {
     maxSingleSmallCaveVisits: Int,
     current: String,
     previouslyVisitedCaves: Map<String, Int> = mapOf(),
-    acc: MutableMap<Pair<String, String>, Int> = mutableMapOf()
+    acc: MutableMap<Pair<String, String>, Int> = mutableMapOf(),
   ): Int {
     if (current == "end") return 1
 

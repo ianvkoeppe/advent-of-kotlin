@@ -28,7 +28,7 @@ object Day12 {
     current: Pair<Int, Int>,
     shortestPaths: MutableMap<Pair<Int, Int>, Int> = mutableMapOf(current to 0),
     unvisited: PriorityQueue<Pair<Int, Int>> =
-      PriorityQueue<Pair<Int, Int>>(Comparator.comparingInt { n -> shortestPaths.getValue(n) })
+      PriorityQueue<Pair<Int, Int>>(Comparator.comparingInt { n -> shortestPaths.getValue(n) }),
   ): Map<Pair<Int, Int>, Int> {
     val newShortestPaths =
       adjacentSquares

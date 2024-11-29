@@ -65,7 +65,7 @@ object Day18 {
   private tailrec fun countDugSquares(
     lines: List<LineSegment>,
     y: Long = lines.minOf(LineSegment::minY),
-    sum: Long = 0
+    sum: Long = 0,
   ): Long {
     if (y > lines.maxOf(LineSegment::maxY)) return sum
 

@@ -45,8 +45,8 @@ object Day24 {
           Op(
             Expr(value = Val(id = parts[1])),
             parts[0],
-            if (rightSideOfOperation != null) rightHandExpression else null
-          )
+            if (rightSideOfOperation != null) rightHandExpression else null,
+          ),
         )
       }
   }
@@ -57,7 +57,7 @@ object Day24 {
         Triple(
           parseRightHandPrimitive(program[index + 4]),
           parseRightHandPrimitive(program[index + 5]),
-          parseRightHandPrimitive(program[index + 15])
+          parseRightHandPrimitive(program[index + 15]),
         )
       else null
     }
@@ -69,7 +69,7 @@ object Day24 {
     constants: List<Triple<Int, Int, Int>>,
     digitPosition: Int = 13,
     targetZValues: List<Int> = listOf(0),
-    targetZToDigit: Map<Int, Map<Int, List<Pair<Int, Int>>>> = mapOf()
+    targetZToDigit: Map<Int, Map<Int, List<Pair<Int, Int>>>> = mapOf(),
   ): Pair<Long, Long> {
     if (digitPosition < 0)
       return findNumberEqualingZByComparator(targetZToDigit, { -it.first }).toLong() to
@@ -80,13 +80,13 @@ object Day24 {
       constants,
       digitPosition - 1,
       nextTargetZValues.keys.toList(),
-      targetZToDigit + (digitPosition to nextTargetZValues)
+      targetZToDigit + (digitPosition to nextTargetZValues),
     )
   }
 
   private fun findCandidateDigits(
     constants: Triple<Int, Int, Int>,
-    targetZValues: List<Int>
+    targetZValues: List<Int>,
   ): Map<Int, List<Pair<Int, Int>>> {
     return (1..9)
       .reversed()
@@ -97,7 +97,7 @@ object Day24 {
               .flatMap { A ->
                 listOfNotNull(
                   firstValidCheck(candidateDigit, targetZValue, constants, A),
-                  secondValidCheck(candidateDigit, targetZValue, constants, A)
+                  secondValidCheck(candidateDigit, targetZValue, constants, A),
                 )
               }
               .map { position -> position to (candidateDigit to targetZValue) }
@@ -130,7 +130,7 @@ object Day24 {
     targetZToDigit: Map<Int, Map<Int, List<Pair<Int, Int>>>>,
     comparator: (Pair<Int, Int>) -> Int,
     digitPosition: Int = 0,
-    targetZ: Int = 0
+    targetZ: Int = 0,
   ): String {
     if (digitPosition == 14) return ""
     val (digit, nextTargetZ) = targetZToDigit.getValue(digitPosition).getValue(targetZ).minByOrNull(comparator)!!
@@ -157,7 +157,7 @@ object Day24 {
   private fun reverseEngineer(
     program: List<Assignment>,
     index: Int = program.size - 1,
-    value: Val = Val(id = "z")
+    value: Val = Val(id = "z"),
   ): Expr {
     if (index < 0) return Expr(value)
     if (value.primitive != null) return Expr(value = value)

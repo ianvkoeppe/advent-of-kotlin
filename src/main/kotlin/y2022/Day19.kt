@@ -8,13 +8,13 @@ object Day19 {
     GEODE,
     OBSIDIAN,
     CLAY,
-    ORE
+    ORE,
   }
 
   private data class Blueprint(
     val costs: Map<Resource, Map<Resource, Int>>,
     val robots: Map<Resource, Int> = mapOf(Resource.ORE to 1),
-    val resources: Map<Resource, Int> = mapOf()
+    val resources: Map<Resource, Int> = mapOf(),
   ) {
     fun findMaxCrackableGeodes(minutes: Int = 24, maxThusFar: Int = 0): Int {
       if (maxThusFar > findMaxPossibleRemainingGeodes(minutes)) return maxThusFar
@@ -49,7 +49,7 @@ object Day19 {
         0,
         costs
           .maxOf { (type, cost) -> ceil((cost.toDouble() - resources.getOrDefault(type, 0)) / robots.getValue(type)) }
-          .toInt()
+          .toInt(),
       ) + 1
     }
 

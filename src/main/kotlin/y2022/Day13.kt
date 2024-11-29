@@ -9,7 +9,7 @@ object Day13 {
   enum class Comparison {
     LESS,
     GREATER,
-    EQUAL
+    EQUAL,
   }
 
   private val dividers = listOf(jsonArrayOf(jsonArrayOf(JsonPrimitive(2))), jsonArrayOf(jsonArrayOf(JsonPrimitive(6))))

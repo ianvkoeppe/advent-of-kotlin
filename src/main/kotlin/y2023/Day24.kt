@@ -47,7 +47,7 @@ object Day24 {
       val sub = pos.subtract(other.pos)
       return Plane(
         sub.crossProduct(velocity.subtract(other.velocity)),
-        sub.dotProduct(velocity.crossProduct(other.velocity))
+        sub.dotProduct(velocity.crossProduct(other.velocity)),
       )
     }
   }
@@ -71,7 +71,7 @@ object Day24 {
             perpendicularVectors,
             secondPlane.point.crossProduct(thirdPlane.point),
             thirdPlane.point.crossProduct(firstPlane.point),
-            firstPlane.point.crossProduct(secondPlane.point)
+            firstPlane.point.crossProduct(secondPlane.point),
           )
           .let { (x, y, z) -> Point(x / dotProductOfPlanes, y / dotProductOfPlanes, z / dotProductOfPlanes) }
       val ww = first.velocity.subtract(w).crossProduct(second.velocity.subtract(w))
@@ -80,7 +80,7 @@ object Day24 {
         Point(
           ww.dotProduct(second.pos.crossProduct(second.velocity.subtract(w))),
           -ww.dotProduct(first.pos.crossProduct(first.velocity.subtract(w))),
-          first.pos.dotProduct(ww)
+          first.pos.dotProduct(ww),
         )
       val S = ww.dotProduct(ww)
       return matrixMultiply(vectors, first.velocity.subtract(w), second.velocity.subtract(w), ww).let { (x, y, z) ->

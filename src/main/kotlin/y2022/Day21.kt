@@ -55,7 +55,7 @@ object Day21 {
               Operation(
                 resolveExpressions(monkey.operation!!.lhs.id!!),
                 monkey.operation.op,
-                resolveExpressions(monkey.operation.rhs.id!!)
+                resolveExpressions(monkey.operation.rhs.id!!),
               )
           )
       }

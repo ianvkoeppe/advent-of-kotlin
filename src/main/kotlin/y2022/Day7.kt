@@ -15,7 +15,7 @@ object Day7 {
   private data class Dir(
     override val name: String,
     override val parent: Dir? = null,
-    val children: MutableList<Path> = mutableListOf()
+    val children: MutableList<Path> = mutableListOf(),
   ) : Path {
     override fun size(): Long = children.sumOf { it.size() }
   }

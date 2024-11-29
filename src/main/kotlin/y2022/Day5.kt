@@ -23,7 +23,7 @@ object Day5 {
 
   private fun move(
     lines: List<String>,
-    movement: (Map<Int, ArrayDeque<Char>>, Move) -> Unit
+    movement: (Map<Int, ArrayDeque<Char>>, Move) -> Unit,
   ): Map<Int, ArrayDeque<Char>> {
     val (stacks, moves) = lines.joinToString("\n").split("\n\n").map { it.split("\n") }
     return parseMoves(moves).fold(parseStacks(stacks)) { s, m ->

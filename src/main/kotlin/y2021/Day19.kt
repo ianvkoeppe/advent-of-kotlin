@@ -56,7 +56,7 @@ object Day19 {
     scanners: List<Scanner>,
     unvisited: List<Scanner> = scanners.drop(1),
     next: List<LocatedScanner> =
-      listOf(LocatedScanner(scanners.first().number, scanners.first().beacons, Point3D(0, 0, 0)))
+      listOf(LocatedScanner(scanners.first().number, scanners.first().beacons, Point3D(0, 0, 0))),
   ): List<LocatedScanner> {
     if (unvisited.isEmpty()) return next
 
@@ -69,7 +69,7 @@ object Day19 {
     return determineAbsolutePositions(
       scanners,
       unvisited - scannerToLocated.keys,
-      next + scannerToLocated.values.filterNotNull()
+      next + scannerToLocated.values.filterNotNull(),
     )
   }
 
@@ -90,7 +90,7 @@ object Day19 {
             return LocatedScanner(
               second.number,
               transposed.map { b -> Point3D(b.x + position.x, b.y + position.y, b.z + position.z) }.toSet(),
-              position
+              position,
             )
           }
         }

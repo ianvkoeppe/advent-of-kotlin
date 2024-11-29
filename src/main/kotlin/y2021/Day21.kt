@@ -31,7 +31,7 @@ object Day21 {
   private fun playUntil(
     players: List<Player>,
     winningScore: Int,
-    state: GameState = GameState(players.associate { it.n to it.initialPosition }, mapOf(), 0)
+    state: GameState = GameState(players.associate { it.n to it.initialPosition }, mapOf(), 0),
   ): GameState {
     if (state.scores.values.any { it >= winningScore }) return state
     return playUntil(players.drop(1) + players.first(), winningScore, turn(players.first(), state))
@@ -40,7 +40,7 @@ object Day21 {
   private fun countUniverses(
     players: List<Player>,
     winningScore: Int,
-    state: GameState = GameState(players.associate { it.n to it.initialPosition }, mapOf(), 0)
+    state: GameState = GameState(players.associate { it.n to it.initialPosition }, mapOf(), 0),
   ): Map<Int, Long> {
     if (state.scores.values.any { it >= winningScore }) return mapOf(state.scores.maxByOrNull { it.value }!!.key to 1)
 
@@ -65,7 +65,7 @@ object Day21 {
     return state.copy(
       positions = state.positions + (player.n to position),
       scores = updatedScore,
-      turn = state.turn + 1
+      turn = state.turn + 1,
     )
   }
 }

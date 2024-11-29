@@ -19,7 +19,7 @@ object Day15 {
   private data class IdentifiedSignal(
     val sensor: Point,
     val beacon: Point,
-    val height: Int = sensor.manhattanDistance(beacon)
+    val height: Int = sensor.manhattanDistance(beacon),
   ) {
     private val adjacentSquares = listOf((1 to 0), (0 to 1), (-1 to 0), (0 to -1))
 

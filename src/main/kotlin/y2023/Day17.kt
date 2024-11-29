@@ -9,7 +9,7 @@ object Day17 {
     UP,
     RIGHT,
     DOWN,
-    LEFT
+    LEFT,
   }
 
   private data class Crucible(val pos: Pos, val last: Direction? = null, val consecutiveSteps: Int = 0) {
@@ -23,14 +23,14 @@ object Day17 {
         Direction.UP to { c, n -> c.copy(y = c.y - n) },
         Direction.RIGHT to { c, n -> c.copy(x = c.x + n) },
         Direction.DOWN to { c, n -> c.copy(y = c.y + n) },
-        Direction.LEFT to { c, n -> c.copy(x = c.x - n) }
+        Direction.LEFT to { c, n -> c.copy(x = c.x - n) },
       )
     private val opposite: Map<Direction, Direction> =
       mapOf(
         Direction.UP to Direction.DOWN,
         Direction.RIGHT to Direction.LEFT,
         Direction.DOWN to Direction.UP,
-        Direction.LEFT to Direction.RIGHT
+        Direction.LEFT to Direction.RIGHT,
       )
 
     private val grid: List<List<Int>> = lines.map { it.map(Char::digitToInt) }
@@ -56,7 +56,7 @@ object Day17 {
         move(crucible, Direction.UP),
         move(crucible, Direction.RIGHT),
         move(crucible, Direction.DOWN),
-        move(crucible, Direction.LEFT)
+        move(crucible, Direction.LEFT),
       )
 
     private fun move(crucible: Crucible, direction: Direction): Crucible? {

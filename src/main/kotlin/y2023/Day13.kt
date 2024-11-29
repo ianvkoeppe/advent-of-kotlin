@@ -24,7 +24,7 @@ object Day13 {
       candidateSize: Int,
       checkSize: Int,
       mismatches: Int,
-      comparison: (Int, Int) -> Char
+      comparison: (Int, Int) -> Char,
     ): Int? =
       (0 until candidateSize - 1).firstOrNull { candidate ->
         val matches =

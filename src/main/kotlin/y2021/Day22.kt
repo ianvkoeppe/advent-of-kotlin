@@ -42,7 +42,7 @@ object Day22 {
   private tailrec fun run(
     instructions: List<Instruction>,
     current: Int = 0,
-    on: List<Area3D> = listOf()
+    on: List<Area3D> = listOf(),
   ): List<Area3D> {
     if (current == instructions.size) return on
     return run(instructions, current + 1, turn(on, instructions[current]))

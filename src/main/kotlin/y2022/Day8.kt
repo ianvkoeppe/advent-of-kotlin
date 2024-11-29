@@ -22,7 +22,7 @@ object Day8 {
 
   private fun <T> countWithScore(
     lines: List<String>,
-    visibilityScorer: (Int, List<Int>) -> T
+    visibilityScorer: (Int, List<Int>) -> T,
   ): List<List<Visibility<T>>> {
     val trees = lines.map { it.map(Char::digitToInt) }
     return List(trees.size) { currentX ->
@@ -41,7 +41,7 @@ object Day8 {
     x: Int,
     y: Int,
     visibilityScorer: (Int, List<Int>) -> T,
-    nextIndices: (Int, Int) -> Pair<Int, Int>
+    nextIndices: (Int, Int) -> Pair<Int, Int>,
   ): T {
     val neighbors =
       generateSequence(Pair(x, y)) { (x, y) -> nextIndices(x, y) }

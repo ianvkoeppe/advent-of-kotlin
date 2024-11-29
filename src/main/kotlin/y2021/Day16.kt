@@ -11,7 +11,7 @@ object Day16 {
     val type: Int,
     val value: Long?,
     val packets: List<Packet>,
-    val binary: String
+    val binary: String,
   )
 
   private val hexes = listOf('0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F')
@@ -75,7 +75,7 @@ object Day16 {
     type: Int,
     binary: String,
     offset: Offset,
-    terminatingValue: (List<Packet>) -> Int
+    terminatingValue: (List<Packet>) -> Int,
   ): Packet {
     val subPackets = parseUntil(binary, offset, terminatingValue)
     return Packet(
@@ -83,7 +83,7 @@ object Day16 {
       type,
       null,
       subPackets,
-      binary.take(offset.start + offset.length + subPackets.sumOf { it.binary.length })
+      binary.take(offset.start + offset.length + subPackets.sumOf { it.binary.length }),
     )
   }
 

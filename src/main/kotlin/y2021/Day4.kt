@@ -43,7 +43,7 @@ object Day4 {
     board: Board,
     nums: LinkedHashSet<Long>,
     start: Pair<Int, Int> = (0 to 0),
-    inc: (Pair<Int, Int>) -> Pair<Int, Int>
+    inc: (Pair<Int, Int>) -> Pair<Int, Int>,
   ): Int? {
     val hitRounds =
       generateSequence(start, inc)

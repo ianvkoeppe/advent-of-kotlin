@@ -8,7 +8,7 @@ object Day14 {
     val walls: Set<Pair<Int, Int>>,
     val maxDepth: Int? = null,
     val lowestWall: Int = walls.maxOf { it.second },
-    val sand: MutableSet<Pair<Int, Int>> = mutableSetOf()
+    val sand: MutableSet<Pair<Int, Int>> = mutableSetOf(),
   ) {
     fun placeSand(grain: Pair<Int, Int>): Cave = this.also { it.sand.add(grain) }
 

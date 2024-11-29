@@ -71,7 +71,7 @@ object Day18 {
       if (indexToSplit != -1) {
         updated.add(
           indexToSplit + 1,
-          ceil(updated[indexToSplit].first / 2.0).toInt() to updated[indexToSplit].second + 1
+          ceil(updated[indexToSplit].first / 2.0).toInt() to updated[indexToSplit].second + 1,
         )
         updated[indexToSplit] = updated[indexToSplit].first / 2 to updated[indexToSplit].second + 1
       } else return numsToDepths

@@ -10,8 +10,6 @@ import java.nio.file.Path
 import java.nio.file.Paths
 import kotlin.io.path.exists
 
-fun main(args: Array<String>) = Scaffolder().main(args)
-
 class Scaffolder : CliktCommand() {
   private val mainSources: Path = Paths.get("src/main/kotlin")
   private val testSources: Path = Paths.get("src/test/kotlin")
@@ -60,7 +58,7 @@ class Scaffolder : CliktCommand() {
   private fun generateInputFiles() {
     Filer.writeStringCreatingDirectories(
       Path.of("src/test/resources/$year/$day/problem.txt"),
-      client.getProblemInput(year, day)
+      client.getProblemInput(year, day),
     )
     Filer.writeStringCreatingDirectories(Path.of("src/test/resources/$year/$day/example.txt"), "")
   }

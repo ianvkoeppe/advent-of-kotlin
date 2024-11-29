@@ -54,7 +54,7 @@ object Day23 {
       return this.copy(
         hallway = h,
         rooms = rooms + (roomType to r),
-        cost = cost + c * costMagnitudes.getValue(amphipod)
+        cost = cost + c * costMagnitudes.getValue(amphipod),
       )
     }
 

@@ -56,7 +56,7 @@ object Day10 {
       data class RunningCount(
         val intersections: Int = 0,
         val isInterior: Boolean = false,
-        val lastSegment: Char? = null
+        val lastSegment: Char? = null,
       )
 
       return maze
@@ -71,7 +71,7 @@ object Day10 {
             running.copy(
               intersections = running.intersections + if (intersects) 1 else 0,
               isInterior = running.intersections % 2 == 1 && Pos(x, y) !in pipes,
-              lastSegment = if (intersects) v else running.lastSegment
+              lastSegment = if (intersects) v else running.lastSegment,
             )
           }
         }

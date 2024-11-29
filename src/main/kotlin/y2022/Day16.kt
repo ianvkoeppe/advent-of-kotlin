@@ -13,7 +13,7 @@ object Day16 {
     val tunnels: Map<String, Valve>,
     val positions: List<Position> = listOf(Position()),
     val opened: Set<String> = setOf(),
-    val released: Int = 0
+    val released: Int = 0,
   ) {
     fun underPressureDoDoDoDo(): Int =
       findNextValves().maxOfOrNull { next -> moveToAndOpen(next).underPressureDoDoDoDo() } ?: released
@@ -32,7 +32,7 @@ object Day16 {
                 position,
                 name,
                 timeToMoveToAndOpen,
-                (position.timeToErupt - timeToMoveToAndOpen) * tunnels.getValue(name).flowRate
+                (position.timeToErupt - timeToMoveToAndOpen) * tunnels.getValue(name).flowRate,
               )
             }
         }
@@ -62,7 +62,7 @@ object Day16 {
               } ?: position
           },
         opened = opened + movements.map { it.to },
-        released = released + movements.sumOf { it.release }
+        released = released + movements.sumOf { it.release },
       )
     }
   }
@@ -92,7 +92,7 @@ object Day16 {
     valves: Map<String, Valve>,
     current: List<String>,
     visited: Set<String> = setOf(),
-    timeToMoveToAndOpen: Int = 2
+    timeToMoveToAndOpen: Int = 2,
   ): Map<String, Int> {
     if (current.isEmpty()) return mapOf()
     val next = current.flatMap { valves.getValue(it).tunnels.keys }.filterNot(visited::contains)

@@ -15,7 +15,7 @@ object Day3 {
   private fun filterBinaryUntilOne(
     binaries: List<String>,
     comparator: (Char, Any?) -> Boolean,
-    index: Int = 0
+    index: Int = 0,
   ): String {
     if (binaries.size == 1) return binaries.first()
 

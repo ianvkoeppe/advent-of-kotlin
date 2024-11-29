@@ -6,7 +6,7 @@ object Day10 {
   private data class State(
     private val register: List<Int> = listOf(1),
     private val cycle: Int = 0,
-    private val screen: List<Char> = listOf()
+    private val screen: List<Char> = listOf(),
   ) {
     private val screenSize = 40
 

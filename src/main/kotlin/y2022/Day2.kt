@@ -4,7 +4,7 @@ object Day2 {
   enum class Choice {
     ROCK,
     PAPER,
-    SCISSORS
+    SCISSORS,
   }
 
   private val choices =
@@ -14,10 +14,11 @@ object Day2 {
       'B' to Choice.PAPER,
       'Y' to Choice.PAPER,
       'C' to Choice.SCISSORS,
-      'Z' to Choice.SCISSORS
+      'Z' to Choice.SCISSORS,
     )
   private val outcomes =
     mapOf(-1 to 6, 0 to 3, 1 to 0) // Take advantage of the idea that choice at index beats choice at index - 1, draws
+
   // at same index, and loses to index + 1.
 
   fun partOne(lines: List<String>): Int {
@@ -30,7 +31,7 @@ object Day2 {
 
   private fun findScoreWithStrategy(
     lines: List<String>,
-    strategy: (Choice, Char) -> Choice = { _, yourStrategy -> choices.getValue(yourStrategy) }
+    strategy: (Choice, Char) -> Choice = { _, yourStrategy -> choices.getValue(yourStrategy) },
   ): Int {
     return lines
       .map { it.split(" ") }

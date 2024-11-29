@@ -10,7 +10,7 @@ object Day11 {
     val items: List<Long>,
     val operation: (Long) -> Long,
     val test: Test,
-    val inspections: Long = 0
+    val inspections: Long = 0,
   ) {
     fun operate(item: Long, stressManagementTechnique: (Long) -> Long): Long =
       stressManagementTechnique(operation(item))
@@ -29,7 +29,7 @@ object Day11 {
           monkey.copy(
             items =
               if (monkey.number == current.number) listOf() else monkey.items + (toPass[monkey.number] ?: listOf()),
-            inspections = monkey.inspections + if (monkey.number == current.number) current.items.size else 0
+            inspections = monkey.inspections + if (monkey.number == current.number) current.items.size else 0,
           )
         }
       return Troop(monkeys)
@@ -87,7 +87,7 @@ object Day11 {
         nextTroop.monkeyAround(nextTroop.monkeys[monkey], stressManagementTechnique)
       },
       rounds - 1,
-      stressManagementTechnique
+      stressManagementTechnique,
     )
   }
 }

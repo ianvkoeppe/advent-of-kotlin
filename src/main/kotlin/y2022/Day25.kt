@@ -29,7 +29,7 @@ object Day25 {
     val carryOver = if (numberToSymbol.contains(digitWithCarryOver)) 1 else 0
     return builder.copy(
       snafu = listOf(numberToSymbol.getOrDefault(digitWithCarryOver, digitWithCarryOver.digitToChar())) + builder.snafu,
-      carryOver = carryOver
+      carryOver = carryOver,
     )
   }
 }
